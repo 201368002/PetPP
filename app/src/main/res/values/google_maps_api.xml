@@ -1,0 +1,10 @@
+<resources>
+    <!--
+    GOOGLE MAP
+    SHA-1 인증서 지문 : 77:1A:BF:F0:C7:28:7A:0C:ED:9A:DB:4A:E1:43:1F:4C:FD:4D:08:D9
+    API 키 : AIzaSyAQfHu2EpbXd_5mcMEjHY1THACHB0z2mvc
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+        AIzaSyAQfHu2EpbXd_5mcMEjHY1THACHB0z2mvc
+    </string>
+</resources>

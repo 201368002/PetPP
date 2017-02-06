@@ -1,0 +1,9 @@
+<resources>
+    <string-array name="xy_array_list">
+
+        <item>남자</item>
+
+        <item>여자</item>
+
+    </string-array>
+</resources>

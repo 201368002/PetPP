@@ -1,0 +1,76 @@
+apply plugin: 'com.android.application'
+
+// 람다 retrolambda
+apply plugin: 'me.tatarka.retrolambda'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "com.example.tacademy.petpp"
+        minSdkVersion 16
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+    }
+    // 람다 retrolambda
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    // butterknife 버터나이프
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.jakewharton:butterknife:8.4.0'
+    compile 'com.android.support:support-v4:24.2.1'
+    compile 'com.android.support:design:24.2.1'
+    testCompile 'junit:junit:4.12'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    // circleimageview
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+    // sweetalert
+    compile 'cn.pedant.sweetalert:library:1.3'
+    // 카메라 사용 -> https://github.com/miguelbcr/RxPaparazzo
+    compile 'com.github.miguelbcr:RxPaparazzo:0.4.3'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    // 카메라 사용하기 위한 Module
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.squareup:otto:1.3.8'
+    // firebase Analytics
+    compile 'com.google.firebase:firebase-core:10.0.1'
+    // firebase 저장소
+    compile 'com.google.firebase:firebase-storage:10.0.1'
+    // firebase 오류 보고
+    compile 'com.google.firebase:firebase-crash:10.0.1'
+    // 람다 retrolambda
+    retrolambdaConfig 'net.orfjackal.retrolambda:retrolambda:+'
+
+    // google maps
+    compile 'com.google.android.gms:play-services:10.0.1'
+    testCompile 'junit:junit:4.12'
+    // google maps 추가 -> 65536 : 함수 부족 에러
+    compile 'com.android.support:multidex:1.0.1'
+    // google maps 위치정보
+    compile 'com.squareup:otto:1.3.8'
+}
+
+
+// firebase
+apply plugin: 'com.google.gms.google-services'
