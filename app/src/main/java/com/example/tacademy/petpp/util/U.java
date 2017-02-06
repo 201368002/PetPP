@@ -48,4 +48,14 @@ public class U {
     public void setMyLocation(Location myLocation) {
         this.myLocation = myLocation;
     }
+
+    Boolean myPageType;
+
+    public Boolean getMyPageType() {
+        return myPageType;
+    }
+
+    public void setMyPageType(Boolean myPageType) {
+        this.myPageType = myPageType;
+    }
 }

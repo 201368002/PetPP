@@ -8,12 +8,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.example.tacademy.petpp.R;
 import com.example.tacademy.petpp.ui.mypage.act.MyPageActivity;
 import com.example.tacademy.petpp.util.Log;
+import com.example.tacademy.petpp.util.U;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -23,7 +24,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import static android.view.View.VISIBLE;
-import static com.example.tacademy.petpp.R.id.imageView;
+import static android.view.View.INVISIBLE;
 
 public class MainMapFragment extends Fragment implements OnMapReadyCallback {
     private static final String ARG_PARAM1 = "param1";
@@ -35,6 +36,9 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
     private OnFragmentInteractionListener mListener;
 
     LayoutInflater inflater;
+
+    LinearLayout detailMarker;
+    RelativeLayout mapLayout;
 
     public MainMapFragment() {
     }
@@ -63,12 +67,26 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
         this.inflater = inflater;
         View view = inflater.inflate(R.layout.fragment_main_map, container, false);
         detailMarker = (LinearLayout) view.findViewById(R.id.detailMarker);
+        mapLayout = (RelativeLayout) view.findViewById(R.id.mapLayout);
+
+        // ========================= 이벤트 리스너 =============================
         detailMarker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                U.getInstance().setMyPageType(false);
+                Intent intent = new Intent(getActivity(), MyPageActivity.class);
+                startActivity(intent);
             }
         });
+
+        mapLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 클릭시 하단 상세데이터 숨기기
+                detailMarker.setVisibility(INVISIBLE);
+            }
+        });
+        // ===================================================================
 
         // 초기화
         MapView mapView = (MapView) view.findViewById(R.id.map);
@@ -162,10 +180,8 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
 
     // ======================================================
 
-    LinearLayout detailMarker;
-
-    public void onDetailMarker(View view){
-        Intent intent = new Intent(getActivity(), MyPageActivity.class);
-        startActivity(intent);
-    }
+//    public void onDetailMarker(View view){
+//        Intent intent = new Intent(getActivity(), MyPageActivity.class);
+//        startActivity(intent);
+//    }
 }

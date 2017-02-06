@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.example.tacademy.petpp.base.BaseActivity;
@@ -39,6 +40,7 @@ public class PeopleProfileActivity extends BaseActivity {
 
     // 프로필 이미지
     ImageView profile_image;
+    LinearLayout personLinearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,13 @@ public class PeopleProfileActivity extends BaseActivity {
         XYSelect();
 
         profile_image = (ImageView)findViewById(R.id.profile_image);
+        personLinearLayout = (LinearLayout)findViewById(R.id.personLinearLayout);
+        personLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //closeKeyword(this, );
+            }
+        });
     }
 
     // 성별 선택

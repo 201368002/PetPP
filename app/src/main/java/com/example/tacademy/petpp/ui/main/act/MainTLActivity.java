@@ -31,6 +31,7 @@ import com.example.tacademy.petpp.ui.main.frag.MainTLFragment;
 import com.example.tacademy.petpp.ui.mypage.act.MyPageActivity;
 import com.example.tacademy.petpp.util.GpsDetecting;
 import com.example.tacademy.petpp.util.Log;
+import com.example.tacademy.petpp.util.U;
 import com.squareup.otto.Subscribe;
 
 import java.util.List;
@@ -180,6 +181,7 @@ public class MainTLActivity extends BaseActivity {
 
     // 마이페이지
     public void onMypage(View view){
+        U.getInstance().setMyPageType(true);
         Intent intent = new Intent(this, MyPageActivity.class);
         startActivity(intent);
     }
