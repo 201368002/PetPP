@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.tacademy.petpp.R;
+import com.example.tacademy.petpp.util.ImageProc;
 
 public class MyViewFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
@@ -29,6 +30,25 @@ public class MyViewFragment extends Fragment {
 
 
     // 임의 데이터
+    String[] phDate = {"http://www.9dog.co.kr/wp-content/uploads/2013/08/foot3.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/09/puppy-belly.aaaaah-l.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/09/2882926426_f3118f102f_z.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/08/pr2.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/07/img_01.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/08/sul.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/07/ep50.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/07/img_0121.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/07/img_0413.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/07/ep_02.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/07/img_0214.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/07/img_051.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/08/foot3.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/09/puppy-belly.aaaaah-l.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/09/2882926426_f3118f102f_z.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/08/pr2.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/07/img_01.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/08/sul.jpg"};
+
     String[] name = {"가나다1","가나다2","라나다3","가나다4","가나다라5","라나다6",
             "가나다7","가나다라8","라나다9","가나다0","가나다라9","라나다8",
             "가나다77","가나다6라","라5나다","가나4다","가3나다라","2라나다",
@@ -109,11 +129,14 @@ public class MyViewFragment extends Fragment {
                 // 리스트뷰
                 convertView = inflater.inflate(R.layout.cell_grid_mypage_layout, parent, false);
             }
-            ImageView profile = (ImageView)convertView.findViewById(R.id.myPageGridImageView);
+            ImageView myPageGridImageView = (ImageView)convertView.findViewById(R.id.myPageGridImageView);
             TextView nickname = (TextView)convertView.findViewById(R.id.nickname);
 
             // 이름 세팅
             nickname.setText(name[position]);
+            ImageProc.getInstance().drawImage(
+                    phDate[position], myPageGridImageView
+            );
 
             return convertView;
         }

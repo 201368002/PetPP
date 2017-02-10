@@ -5,15 +5,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.example.tacademy.petpp.base.BaseActivity;
+import com.example.tacademy.petpp.model.Member;
+import com.example.tacademy.petpp.util.Log;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -41,9 +44,11 @@ public class PeopleProfileActivity extends BaseActivity {
     // 프로필 이미지
     ImageView profile_image;
     LinearLayout personLinearLayout;
+    EditText name_et;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        actList.add(this); // actList에 B를 추가해줍니다.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_people_profile);
 
@@ -52,6 +57,7 @@ public class PeopleProfileActivity extends BaseActivity {
 
         profile_image = (ImageView)findViewById(R.id.profile_image);
         personLinearLayout = (LinearLayout)findViewById(R.id.personLinearLayout);
+        name_et = (EditText)findViewById(R.id.name_et);
         personLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,20 +84,19 @@ public class PeopleProfileActivity extends BaseActivity {
         });
     }
 
-
-
     // ============================== 카메라 =============================
     SweetAlertDialog alert, alert2;
     String urlString = null;
 
+    // 사진 선택 or 사진 삭제
     public void onPImageView(View view){
         if( urlString==null ){
             onPhoto(view);
         }else{
-            Log.i("PH", "초기 urlString : " + urlString);
+            Log.getInstance().signLog("초기 urlString : " + urlString);
             alert2 = new SweetAlertDialog(this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
                     .setTitleText("사진삭제")
-                    .setContentText("사진을 삭제시키겠습니까?")
+                    .setContentText("사진을 삭제시키고 다시 선택하겠습니까?")
                     .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener(){
                         public void onClick(SweetAlertDialog sDialog) {
                             fileDelete(urlString);
@@ -101,6 +106,7 @@ public class PeopleProfileActivity extends BaseActivity {
         }
     }
 
+    // 카메라 or 갤러리
     public void onPhoto(View view){
         alert =
                 new SweetAlertDialog(this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
@@ -113,7 +119,7 @@ public class PeopleProfileActivity extends BaseActivity {
                                 onCamera();
                             }
                         })
-                        .setCancelText("포토앨범")
+                        .setCancelText("갤러리")
                         .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sDialog) {
@@ -124,6 +130,7 @@ public class PeopleProfileActivity extends BaseActivity {
         alert.show();
     }
 
+    // 카메라 - 크롭작업을 하기 위해 옵션 설정 (편집)
     public void onCamera(){
         // 크롭작업을 하기 위해 옵션 설정 (편집)
         UCrop.Options options = new UCrop.Options();
@@ -147,6 +154,7 @@ public class PeopleProfileActivity extends BaseActivity {
                 });
     }
 
+    // 갤러리 - 크롭작업을 하기 위해 옵션 설정 (편집)
     public void onGallery(){
         // 크롭작업을 하기 위해 옵션 설정 (편집)
         UCrop.Options options = new UCrop.Options();
@@ -166,11 +174,12 @@ public class PeopleProfileActivity extends BaseActivity {
                         //response.targetUI().showUserCanceled();
                         return;
                     }
-                    Log.i("PH", response.data());
+                    Log.getInstance().signLog( response.data());
                     loadImage(response.data());
                 });
     }
 
+    // 이미지뷰에 이미지를 세팅
     public void loadImage(String path){
         alert.dismissWithAnimation();
         // 이미지뷰에 이미지를 세팅
@@ -210,7 +219,7 @@ public class PeopleProfileActivity extends BaseActivity {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                Log.i("PH", "downloadUrl : " + downloadUrl.toString());
+                Log.getInstance().signLog("downloadUrl : " + downloadUrl.toString());
                 // downloadUrl.toString() => 프로필 정보로 업로드!
             }
         }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -218,7 +227,7 @@ public class PeopleProfileActivity extends BaseActivity {
             public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                 // 진행율!!
                 float rate = (taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount())*100.0f;
-                Log.i("PH", "진행율 : " + rate);
+                Log.getInstance().signLog("진행율 : " + rate);
             }
         });
     }
@@ -227,8 +236,9 @@ public class PeopleProfileActivity extends BaseActivity {
 
         StorageReference desertRef = storageRef.child(url);
         // StorageReference desertRef = storageRef.getReferenceFromUrl("");
-        Log.i("PH", "fileDelete(); 호출");
-        Log.i("PH", "desertRef" + url);
+        Log.getInstance().signLog( "fileDelete(); 호출");
+        Log.getInstance().signLog( "desertRef" + url);
+
         // Delete the file
         desertRef.delete().addOnSuccessListener(new OnSuccessListener<Void>(){
             @Override
@@ -245,11 +255,33 @@ public class PeopleProfileActivity extends BaseActivity {
         });
     }
 
+    // 다음 ========================================================
 
     // 모두 입력 확인 후 서버에 저장하고 반려견 정보 입력화면으로 이동
     public void onPProfileNext(View view){
-        Intent intent = new Intent(this, DogProfileActivity.class);
-        startActivity(intent);
+        if(!isValidate()) return;
+
+        if(Member.getInstance().getKakaoId() == null | Member.getInstance().getKakaoId() == "") {
+            Log.getInstance().signLog("카카오톡 아이디와 회원이름이 들어오지 않았습니다. 확인 부탁드립니다.");
+        }else{
+            // 잘들어왔는지 확인과정
+            Log.getInstance().signLog("프로필 화면에서 카카오톡 아이다 :" + Member.getInstance().getKakaoId());
+            Log.getInstance().signLog("프로필 화면에서 회원이름 :" + Member.getInstance().getName());
+
+            Intent intent = new Intent(this, DogProfileActivity.class);
+            startActivity(intent);
+        }
     }
 
+    // 이름 비어있는지 확인
+    public boolean isValidate(){
+        if(TextUtils.isEmpty(name_et.getText().toString())){   // TextUtils.isEmpty : 비어있는지 아닌지 -> 널이나 공백 -> 이 경우는 공백
+            name_et.setError("이름을 입력하세요");
+            return false;
+        }else {
+            Member.getInstance().setName(name_et.getText().toString());
+            name_et.setError(null);
+        }
+        return true;
+    }
 }

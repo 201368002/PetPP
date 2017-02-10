@@ -1,5 +1,6 @@
 package com.example.tacademy.petpp.ui.mypage.act;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -9,11 +10,13 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.tacademy.petpp.ChatActivity;
 import com.example.tacademy.petpp.R;
 import com.example.tacademy.petpp.base.BaseActivity;
 import com.example.tacademy.petpp.ui.mypage.frag.MyProfileFragment;
 import com.example.tacademy.petpp.ui.mypage.frag.MyReviewFragment;
 import com.example.tacademy.petpp.ui.mypage.frag.MyViewFragment;
+import com.example.tacademy.petpp.util.Log;
 import com.example.tacademy.petpp.util.U;
 
 import static android.view.View.INVISIBLE;
@@ -32,8 +35,6 @@ public class MyPageActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_page);
 
-        myPage();
-
         myPageTabLayout = (TabLayout) findViewById(R.id.myPageTabLayout);
         myPageView = (ViewPager)findViewById(R.id.myPageView);
 
@@ -47,8 +48,10 @@ public class MyPageActivity extends BaseActivity {
         scheduleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 채팅 화면으로 이동
                 // 예약 수락 거절 창 필요
+                // 채팅 화면으로 이동
+                Intent intent = new Intent(MyPageActivity.this, ChatActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -69,6 +72,20 @@ public class MyPageActivity extends BaseActivity {
         });
 
         // ==================================================================
+        if(U.getInstance().getMyPageType() == true){   // 오른쪽 메뉴에서 마이피드페이지 넘어올 경우
+            // 산책예약버튼, 메시지보내기 버튼 숨기기
+            scheduleBtn.setVisibility(INVISIBLE);
+            messageBtn.setVisibility(INVISIBLE);
+            // 프로필 수정 버튼 보이기
+            editProfileBtn.setVisibility(VISIBLE);
+        }else{
+            // 산책예약버튼, 메시지보내기 버튼 보이기
+            scheduleBtn.setVisibility(VISIBLE);
+            messageBtn.setVisibility(VISIBLE);
+            // 프로필 수정 버튼 숨기기
+            editProfileBtn.setVisibility(INVISIBLE);
+        }
+        // ===================================================================
 
         fragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
         myPageView.setAdapter(fragmentAdapter);
@@ -116,23 +133,7 @@ public class MyPageActivity extends BaseActivity {
 
     // 이전 버튼
     public void onBACK(){
-        this.finish();
-    }
-
-    public void myPage(){
-        if(U.getInstance().getMyPageType() == true){   // 오른쪽 메뉴에서 마이피드페이지 넘어올 경우
-            // 산책예약버튼, 메시지보내기 버튼 숨기기
-            scheduleBtn.setVisibility(INVISIBLE);
-            messageBtn.setVisibility(INVISIBLE);
-            // 프로필 수정 버튼 보이기
-            editProfileBtn.setVisibility(VISIBLE);
-        }else{
-            // 산책예약버튼, 메시지보내기 버튼 보이기
-            scheduleBtn.setVisibility(VISIBLE);
-            messageBtn.setVisibility(VISIBLE);
-            // 프로필 수정 버튼 숨기기
-            editProfileBtn.setVisibility(INVISIBLE);
-        }
+        Log.getInstance().log("백버튼.......");
     }
 
 }

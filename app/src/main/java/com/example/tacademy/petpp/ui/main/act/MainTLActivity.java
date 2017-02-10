@@ -23,15 +23,24 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.example.tacademy.petpp.LoginActivity;
 import com.example.tacademy.petpp.R;
-import com.example.tacademy.petpp.SettingActivity;
 import com.example.tacademy.petpp.base.BaseActivity;
+import com.example.tacademy.petpp.ui.WriteAcitivity;
+import com.example.tacademy.petpp.ui.leftmenu.CalenderListActivity;
+import com.example.tacademy.petpp.ui.leftmenu.ChatListActivity;
+import com.example.tacademy.petpp.ui.leftmenu.PointActivity;
+import com.example.tacademy.petpp.ui.leftmenu.ScheduleListActivity;
+import com.example.tacademy.petpp.ui.leftmenu.SettingActivity;
 import com.example.tacademy.petpp.ui.main.frag.MainMapFragment;
 import com.example.tacademy.petpp.ui.main.frag.MainTLFragment;
 import com.example.tacademy.petpp.ui.mypage.act.MyPageActivity;
 import com.example.tacademy.petpp.util.GpsDetecting;
 import com.example.tacademy.petpp.util.Log;
+import com.example.tacademy.petpp.util.StorageHelper;
 import com.example.tacademy.petpp.util.U;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.squareup.otto.Subscribe;
 
 import java.util.List;
@@ -119,7 +128,6 @@ public class MainTLActivity extends BaseActivity {
         {
             leftmenu_back = (RelativeLayout)findViewById(R.id.leftmenu_back);
             leftmenu = (FrameLayout)findViewById(R.id.leftmenu);
-            settingBtn = (Button)findViewById(R.id.settingBtn);
 
             Animation animation;
             leftmenu.setVisibility(View.VISIBLE);
@@ -156,18 +164,14 @@ public class MainTLActivity extends BaseActivity {
                     leftmenu_reset();
                 }
             });
-
-            // 설정 버튼 클릭시
-            settingBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    leftmenu_reset();
-                    Intent intent = new Intent(MainTLActivity.this, SettingActivity.class);
-                    startActivity(intent);
-                }
-            });
-
         }
+    }
+
+    // 홈 메뉴
+    public void HOME(View view){
+        Intent intent = new Intent(this, MainTLActivity.class);
+        startActivity(intent);
+        actFinish();
     }
 
     // 왼쪽 메뉴 초기화
@@ -177,24 +181,76 @@ public class MainTLActivity extends BaseActivity {
         isLeftOn = false;
     }
 
+    // 글쓰기 버튼 클릭시
+    public void onWriteBtn(View view){
+        Intent intent = new Intent(MainTLActivity.this, WriteAcitivity.class);
+        startActivity(intent);
+    }
+
     // ======================== 오른쪽 메뉴 ==============================
 
     // 마이페이지
-    public void onMypage(View view){
+    public void onMypageImageBtn(View view){
+        leftmenu_reset();
         U.getInstance().setMyPageType(true);
         Intent intent = new Intent(this, MyPageActivity.class);
         startActivity(intent);
     }
 
+    // 포인트 상세보기
+    public void onMyPointTV(View view){
+        leftmenu_reset();
+        Intent intent = new Intent(MainTLActivity.this, PointActivity.class);
+        startActivity(intent);
+    }
+
     // 채팅리스트
+    public void onChatBtn(View view){
+        leftmenu_reset();
+        Intent intent = new Intent(MainTLActivity.this, ChatListActivity.class);
+        startActivity(intent);
+    }
 
     // 예약리스트
+    public void onScheBtn(View view){
+        leftmenu_reset();
+        Intent intent = new Intent(MainTLActivity.this, ScheduleListActivity.class);
+        startActivity(intent);
+    }
 
     // 시터 등록하기
+    public void onCalBtn(View view){
+        leftmenu_reset();
+        Intent intent = new Intent(MainTLActivity.this, CalenderListActivity.class);
+        startActivity(intent);
+    }
 
     // 설정
+    public void onSettingBtn(View view){
+        leftmenu_reset();
+        Intent intent = new Intent(MainTLActivity.this, SettingActivity.class);
+        startActivity(intent);
+    }
 
     // 로그아웃
+    //=======================카카오 로그아웃
+    // 세션이 열렸을때만 활성화 하고 -> 마이메뉴쪽 하단에 배치
+    // 세션이 닫혀있으면 -> 로그인 버튼
+    public void onLogoutBtn(View view) {
+        UserManagement.requestLogout(new LogoutResponseCallback() {
+            @Override
+            public void onCompleteLogout() {
+                StorageHelper.getInstance().setBoolean(MainTLActivity.this, "login", false);
+
+                Log.getInstance().signLog("로그아웃 완료 : onClickLogout()");
+                Intent intent = new Intent(MainTLActivity.this, LoginActivity.class);
+                startActivity(intent);
+                // 이전 액티비티 모두 종료하기 위하여.
+                actFinish();
+            }
+
+        });
+    }
 
     // ======================================================
     // 네트워크 체크 checkGpsOn ==============================

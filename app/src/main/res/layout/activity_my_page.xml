@@ -24,7 +24,7 @@
             android:layout_width="80dp"
             android:layout_height="match_parent"
             android:padding="5dp"
-            android:id="@+id/BACK"
+            android:id="@+id/onBACK"
             android:onClick="onBACK"/>
 
     </android.support.v7.widget.Toolbar>

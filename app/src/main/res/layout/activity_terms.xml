@@ -85,5 +85,6 @@ Google 서비스는 Google이 소유하지 않은 일부 콘텐츠를 표시할 
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:id="@+id/agreeButton"/>
+        android:id="@+id/agreeButton"
+        android:onClick="onAgreeBtn"/>
 </RelativeLayout>

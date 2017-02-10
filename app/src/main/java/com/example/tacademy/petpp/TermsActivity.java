@@ -6,20 +6,16 @@ import android.view.View;
 
 import com.example.tacademy.petpp.base.BaseActivity;
 
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 public class TermsActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        actList.add(this); // actList에 B를 추가해줍니다.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_terms);
-        ButterKnife.bind(this);
     }
 
-    @OnClick(R.id.agreeButton)
-    void agreeButton(View view){
+    public void onAgreeBtn(View view){
         Intent intent = new Intent(this, PeopleProfileActivity.class);
         startActivity(intent);
 

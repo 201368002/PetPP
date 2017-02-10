@@ -20,6 +20,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:padding="5dp"
+            android:id="@+id/onBACK"
+            android:onClick="onBACK"
             />
 
         <TextView
@@ -70,7 +72,7 @@
                     android:layout_height="30dp"
                     android:inputType="textPersonName"
                     android:ems="10"
-                    android:id="@+id/editText"
+                    android:id="@+id/name_et"
                     android:background="@drawable/edittext_back_line"
                     android:paddingTop="5dp"/>
 

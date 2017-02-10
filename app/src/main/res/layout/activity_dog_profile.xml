@@ -20,6 +20,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:padding="5dp"
+            android:id="@+id/onBACK"
+            android:onClick="onBACK"
             />
 
         <TextView
@@ -30,7 +32,7 @@
             />
 
         <Button
-            android:text="다음"
+            android:text="완료"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:padding="5dp"
@@ -52,8 +54,8 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_image"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_gravity="center"
                 android:src="@mipmap/profile"
                 android:onClick="onDImageView"/>

@@ -30,7 +30,7 @@
                 android:layout_height="120dp"
                 app:srcCompat="@mipmap/ic_launcher"
                 android:id="@+id/myImage"
-                android:onClick="onMypage"/>
+                android:onClick="onMypageImageBtn"/>
 
             <TextView
                 android:text="김가람"
@@ -43,8 +43,9 @@
                 android:text="1000 point"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/myProfile"
-                android:gravity="center"/>
+                android:id="@+id/myPoint"
+                android:gravity="center"
+                android:onClick="onMyPointTV"/>
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -55,15 +56,17 @@
                     android:text="채팅\n리스트"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:id="@+id/chattingBtn"
-                    android:layout_weight="1" />
+                    android:id="@+id/chatBtn"
+                    android:layout_weight="1"
+                    android:onClick="onChatBtn"/>
 
                 <Button
                     android:text="예약\n리스트"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/reservationList"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:onClick="onScheBtn"/>
             </LinearLayout>
 
             <LinearLayout
@@ -76,21 +79,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/calender"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:onClick="onCalBtn"/>
 
                 <Button
                     android:text="설정"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/settingBtn"
+                    android:onClick="onSettingBtn"
                     android:layout_weight="1" />
             </LinearLayout>
 
             <Button
-                android:text="로그아웃"
+                android:text="카카오계정 로그아웃"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/logoutBtn" />
+                android:id="@+id/logoutBtn"
+                android:onClick="onLogoutBtn"
+                android:background="@drawable/kakao_login_button_background"
+                android:textStyle="normal|bold" />
 
         </LinearLayout>
 

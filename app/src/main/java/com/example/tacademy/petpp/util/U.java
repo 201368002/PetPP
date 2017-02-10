@@ -17,10 +17,12 @@ public class U {
     private U() {
     }
 
+    // 지도의 나의 현재 위치 실시간 변경하기 위한 변수
     double myLat, myLng;
     Location myLocation;
 
     Bus bus = new Bus();
+
     public Bus getBus() {
         return bus;
     }
@@ -49,6 +51,7 @@ public class U {
         this.myLocation = myLocation;
     }
 
+    // 다른 사람 피드인지 나의 피드인지 확인 할 type
     Boolean myPageType;
 
     public Boolean getMyPageType() {

@@ -1,20 +1,34 @@
 package com.example.tacademy.petpp.base;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 
 /**
  * Created by Tacademy on 2017-01-24.
  */
 
 public class BaseActivity extends AppCompatActivity {
+
+    public FirebaseDatabase firebaseDatabase;
+    public DatabaseReference databaseReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        firebaseDatabase    = FirebaseDatabase.getInstance();
+        databaseReference   = firebaseDatabase.getReference();
     }
     // 공통 기능 1
     // primitive 타입
@@ -26,8 +40,7 @@ public class BaseActivity extends AppCompatActivity {
     private ProgressDialog pd;
     // 프로그레스바 처리
     // 프로그레스바 보이기
-    public void showProgress(String msg)
-    {
+    public void showProgress(String msg) {
         // 객체를 1회만 생성한다.
         if( pd == null ) {
             // 생성한다.
@@ -40,9 +53,9 @@ public class BaseActivity extends AppCompatActivity {
         // 화면에 띠워라
         pd.show();
     }
+
     // 프로그레스바 숨기기
-    public void hideProgress()
-    {
+    public void hideProgress() {
         // 닫는다 : 객체가 존재하고, 보일때만
         if( pd != null && pd.isShowing() ) {
             pd.dismiss();
@@ -54,6 +67,19 @@ public class BaseActivity extends AppCompatActivity {
         InputMethodManager methodManager =
                 (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
         methodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+    }
+
+    // 여러 액티비티 한번에 종료하기
+    public static ArrayList<Activity> actList = new ArrayList<Activity>();
+
+    public void actFinish(){
+        for(int i = 0; i < actList.size(); i++)
+            actList.get(i).finish();
+    }
+
+    // 뒤로가기 버튼 클릭시
+    public void onBACK(View view){
+        finish();
     }
 
 //

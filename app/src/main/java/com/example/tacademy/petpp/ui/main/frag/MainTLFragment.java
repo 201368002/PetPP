@@ -7,10 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.tacademy.petpp.R;
+import com.example.tacademy.petpp.util.ImageProc;
 import com.example.tacademy.petpp.util.Log;
 
 public class MainTLFragment extends Fragment {
@@ -30,9 +32,28 @@ public class MainTLFragment extends Fragment {
     LayoutInflater inflater;
 
     // 임의 데이터
+    String[] phDate = {"http://www.9dog.co.kr/wp-content/uploads/2013/08/foot3.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/09/puppy-belly.aaaaah-l.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/09/2882926426_f3118f102f_z.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/08/pr2.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/07/img_01.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/08/sul.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/07/ep50.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/07/img_0121.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/07/img_0413.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/07/ep_02.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/07/img_0214.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/07/img_051.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/08/foot3.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/09/puppy-belly.aaaaah-l.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/09/2882926426_f3118f102f_z.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/08/pr2.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/07/img_01.jpg",
+            "http://www.9dog.co.kr/wp-content/uploads/2013/08/sul.jpg"};
+
     String[] tmpDate = {"가나다1","가나다2","라나다3","가나다4","가나다라5","라나다6",
-            "가나다7","가나다라8","라나다9","가나다0","가나다라9","라나다8",
-            "가나다77","가나다6라","라5나다","가나4다","가3나다라","2라나다"};
+            "가나다7","가나다라8","라나다9","가나다0","가나다라11","라나다812",
+            "가나다7713","가나다146라","라5나15다","가나164다","가3나17다라","2라18나다"};
 
     // ============================
     public MainTLFragment() {
@@ -63,6 +84,7 @@ public class MainTLFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main_tl, container, false);
         main_listView = (ListView)view.findViewById(R.id.main_listView);
 
+        ImageProc.getInstance().getImageLoader(getActivity());   //초기화
         listMyAdapter = new MyAdapter();
         main_listView.setAdapter(listMyAdapter);
 
@@ -100,6 +122,11 @@ public class MainTLFragment extends Fragment {
 
     class ViewHolder{
         TextView tl_name = null;
+        ImageView mainImage = null;
+
+//        public ViewHolder(View view) {
+//            tl_name = (TextView)view.findViewById(R.id.tl_name);
+//        }
     }
 
     class MyAdapter extends BaseAdapter {
@@ -131,6 +158,7 @@ public class MainTLFragment extends Fragment {
                         inflater.inflate(R.layout.cell_list_tl_layout, parent, false);
 
                 holder.tl_name = (TextView)convertView.findViewById(R.id.tl_name);
+                holder.mainImage = (ImageView)convertView.findViewById(R.id.mainImage);
 
                 // 그릇을 뷰에 설정
                 convertView.setTag(holder);
@@ -144,6 +172,11 @@ public class MainTLFragment extends Fragment {
             // 데이터 설정
             // 이름 세팅
             holder.tl_name.setText("" + getItem(position));
+            ImageProc.getInstance().drawImage(
+                    phDate[position], holder.mainImage
+            );
+//            // 무조건 꽉 채우기
+//            holder.mainImage.setScaleType(ImageView.ScaleType.FIT_XY);
 
             return convertView;
         }
