@@ -8,37 +8,42 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_weight="0">
+        android:layout_height="30dp"
+        android:layout_weight="0"
+        android:layout_marginTop="7.3dp">
 
-        <ImageButton
-            android:layout_width="60dp"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="30dp"
             android:layout_height="match_parent"
-            app:srcCompat="@mipmap/profile"
-            android:scaleType="fitCenter"
+            android:src="@mipmap/profile"
             android:id="@+id/personImage" />
 
         <TextView
-            android:text="TextView"
+            android:text="동이동이"
+            android:layout_marginLeft="8dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/tl_name"
             android:layout_weight="1"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:textSize="@dimen/fontOneOneSize"/>
 
         <ImageButton
-            android:layout_width="50dp"
+            android:layout_width="30dp"
             android:layout_height="match_parent"
-            app:srcCompat="@drawable/heart_off"
-            android:id="@+id/heart"
-            android:scaleType="fitCenter" />
+            android:id="@+id/scaImageView"
+            android:scaleType="fitXY"
+            android:src="@mipmap/profile" />
 
         <TextView
-            android:text="0"
+            android:text="*4"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
-            android:id="@+id/heart_count"
-            android:layout_gravity="center"/>
+            android:id="@+id/scaCount"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="7.3dp"
+            android:layout_gravity="center"
+            android:textSize="@dimen/fontOneZeroSize"/>
 
     </LinearLayout>
 
@@ -47,12 +52,52 @@
         android:layout_height="@dimen/mainImageSize"
         app:srcCompat="@mipmap/petpal"
         android:id="@+id/mainImage"
+        android:layout_marginTop="7.3dp"
         android:scaleType="fitXY"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:layout_marginTop="7.3dp"
+        android:layout_marginBottom="6dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:layout_width="24dp"
+            android:layout_height="match_parent"
+            android:id="@+id/heart"
+            android:scaleType="fitXY"
+            android:layout_marginLeft="12dp"
+            android:src="@drawable/heart_off" />
+
+        <TextView
+            android:text="좋아요 68개"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/heart_count"
+            android:layout_marginLeft="4.7dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:textSize="@dimen/fontOneOneSize"/>
+
+    </LinearLayout>
+
     <TextView
-        android:text="TextView"
+        android:text="ListView 뷰의 항목 클릭 이벤트 처리 방법   화면 구성 및 처리안드로이드  역하기전용뷰어 보기첨부파일 (1)ListView 뷰의 리스트로부터 사용자는 그것의 항목(아이템)들 중 하나를 선택할 수 있습니다. 이 때 아이템 클릭 이벤트가 발생하고, 프로그래머는 이를 처리하는 작업을 추가적으로 구현할 수 있습니다. 이것이 바로 이번 포스트의 주제입니다.아이템 클릭 이벤트 처리를 하기 위해 필요한 클래스ListView 뷰의 클릭 이벤트를 처리하기 위해서는 OnItemClickListener 인터페이스를 구현하는 클"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/mainText"/>
+        android:layout_marginTop="6dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="14dp"
+        android:id="@+id/mainText"
+        android:textSize="@dimen/fontOneOneSize"
+        android:maxLines="3"
+        android:ellipsize="end"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@color/colorTLLine"></FrameLayout>
 
 </LinearLayout>

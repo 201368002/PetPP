@@ -5,9 +5,7 @@ import android.os.Bundle;
 
 import com.example.tacademy.petpp.base.BaseActivity;
 import com.example.tacademy.petpp.model.Member;
-import com.example.tacademy.petpp.ui.main.act.MainTLActivity;
 import com.example.tacademy.petpp.util.Log;
-import com.example.tacademy.petpp.util.StorageHelper;
 import com.kakao.auth.ApiResponseCallback;
 import com.kakao.auth.AuthService;
 import com.kakao.auth.ISessionCallback;
@@ -143,17 +141,11 @@ public class LoginActivity extends BaseActivity {
                 if(Member.getInstance().getKakaoId() != null | Member.getInstance().getKakaoId() == "")
                     Log.getInstance().signLog("카카오톡 아이디 : " + Member.getInstance().getKakaoId());
 
-                // StorageHelper.getInstance().getBoolean(LoginActivity.this, "login");
                 // -> 거짓이라면 약관 화면 -> 참이라면 타임라인으로..
-                if( StorageHelper.getInstance().getBoolean(LoginActivity.this, "login") == false) {
-                    // 약관 화면으로 이동
-                    Intent intent = new Intent(LoginActivity.this, TermsActivity.class);
-                    startActivity(intent);
-                }else{
-                    // 메인 화면으로 이동
-                    Intent intent = new Intent(LoginActivity.this, MainTLActivity.class);
-                    startActivity(intent);
-                }
+
+                // 메인 화면으로 이동
+                Intent intent = new Intent(LoginActivity.this, PeopleProfileActivity.class);
+                startActivity(intent);
             }
 
             @Override

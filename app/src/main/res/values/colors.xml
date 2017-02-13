@@ -4,4 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorBase">#4cb6ac</color>
+    <color name="colorLine">#429d94</color>
+    <color name="colorTabLine">#d4d4d4</color>
+    <color name="colorTLLine">#ededed</color>
+    <color name="colorWhite">#FFFFFF</color>
 </resources>

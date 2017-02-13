@@ -88,7 +88,7 @@
                     android:layout_height="30dp"
                     android:inputType="phone"
                     android:ems="10"
-                    android:id="@+id/editText5"
+                    android:id="@+id/phone_et"
                     android:hint=" - 없이 입력 "
                     android:paddingTop="5dp"
                     android:background="@drawable/edittext_back_line" />
@@ -103,7 +103,7 @@
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:id="@+id/spinner"
+                    android:id="@+id/p_Spinner_age"
                     android:paddingTop="5dp"/>
 
                 <TextView
@@ -116,7 +116,7 @@
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:id="@+id/XYSpinner"
+                    android:id="@+id/p_Spinner_XY"
                     android:paddingTop="5dp"/>
 
                 <TextView

@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.example.tacademy.petpp.LoginActivity;
 import com.example.tacademy.petpp.R;
 import com.example.tacademy.petpp.base.BaseActivity;
+import com.example.tacademy.petpp.model.Member;
 import com.example.tacademy.petpp.ui.WriteAcitivity;
 import com.example.tacademy.petpp.ui.leftmenu.CalenderListActivity;
 import com.example.tacademy.petpp.ui.leftmenu.ChatListActivity;
@@ -37,7 +38,6 @@ import com.example.tacademy.petpp.ui.main.frag.MainTLFragment;
 import com.example.tacademy.petpp.ui.mypage.act.MyPageActivity;
 import com.example.tacademy.petpp.util.GpsDetecting;
 import com.example.tacademy.petpp.util.Log;
-import com.example.tacademy.petpp.util.StorageHelper;
 import com.example.tacademy.petpp.util.U;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
@@ -240,15 +240,13 @@ public class MainTLActivity extends BaseActivity {
         UserManagement.requestLogout(new LogoutResponseCallback() {
             @Override
             public void onCompleteLogout() {
-                StorageHelper.getInstance().setBoolean(MainTLActivity.this, "login", false);
-
                 Log.getInstance().signLog("로그아웃 완료 : onClickLogout()");
+                new Member(null, null, null, null, null, null, null, false);
                 Intent intent = new Intent(MainTLActivity.this, LoginActivity.class);
                 startActivity(intent);
                 // 이전 액티비티 모두 종료하기 위하여.
                 actFinish();
             }
-
         });
     }
 
@@ -287,7 +285,6 @@ public class MainTLActivity extends BaseActivity {
                     sweetAlertDialog.dismissWithAnimation();
                     // gps 사용 허가 체크(6.0 이상일때)
                     checkGpsUseOn();
-                    Log.getInstance().gpsLog("skdltm");
                 }
             });
             alertDialog.show();
@@ -314,12 +311,10 @@ public class MainTLActivity extends BaseActivity {
                 }
             } else {
                 // 동의후 6.0이상에서는 퍼미션을 동의 했으므로 바로 실행
-                //getAddress();
                 checkGpsDetectingOn(2);
             }
         }else{
             // 6.0 이하 단말기는 동의가 필요 없으므로 바로 실행
-            //getAddress();
             checkGpsDetectingOn(3);
         }
     }

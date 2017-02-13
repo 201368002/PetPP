@@ -39,6 +39,7 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
 
     LinearLayout detailMarker;
     RelativeLayout mapLayout;
+    MapView map;
 
     public MainMapFragment() {
     }
@@ -64,10 +65,11 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        this.inflater = inflater;
-        View view = inflater.inflate(R.layout.fragment_main_map, container, false);
-        detailMarker = (LinearLayout) view.findViewById(R.id.detailMarker);
-        mapLayout = (RelativeLayout) view.findViewById(R.id.mapLayout);
+        this.inflater   = inflater;
+        View view       = inflater.inflate(R.layout.fragment_main_map, container, false);
+        detailMarker    = (LinearLayout) view.findViewById(R.id.detailMarker);
+        mapLayout       = (RelativeLayout) view.findViewById(R.id.mapLayout);
+        map             = (MapView)view.findViewById(R.id.map);
 
         // ========================= 이벤트 리스너 =============================
         detailMarker.setOnClickListener(new View.OnClickListener() {
@@ -79,13 +81,21 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
-        mapLayout.setOnClickListener(new View.OnClickListener() {
+      /*  mapLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // 클릭시 하단 상세데이터 숨기기
                 detailMarker.setVisibility(INVISIBLE);
             }
-        });
+        });*/
+
+/*        map.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                // 클릭시 하단 상세데이터 숨기기
+                detailMarker.setVisibility(INVISIBLE);
+            }
+        });*/
         // ===================================================================
 
         // 초기화
@@ -159,7 +169,6 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
                         = new LatLng(location.getLatitude(),
                         location.getLongitude());
 
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPosision, 12));
                 // 구글지도상내위치정보:37.4663881,126.9605299
                 // 새로운위치정보:37.4663881,126.9605299
             }

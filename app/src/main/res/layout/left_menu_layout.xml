@@ -28,9 +28,10 @@
             <ImageButton
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                app:srcCompat="@mipmap/ic_launcher"
+                app:srcCompat="@mipmap/profile"
                 android:id="@+id/myImage"
-                android:onClick="onMypageImageBtn"/>
+                android:onClick="onMypageImageBtn"
+                android:scaleType="fitCenter"/>
 
             <TextView
                 android:text="김가람"

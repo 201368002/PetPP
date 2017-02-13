@@ -13,13 +13,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.tacademy.petpp.base.BaseActivity;
 import com.example.tacademy.petpp.model.Member;
 import com.example.tacademy.petpp.util.Log;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -38,13 +38,13 @@ import rx.schedulers.Schedulers;
 public class PeopleProfileActivity extends BaseActivity {
 
     // 스피너 성별
-    Spinner XYSpinner;
-    ArrayAdapter<CharSequence> XYAdapter;
+    Spinner p_Spinner_XY, p_Spinner_age;
+    ArrayAdapter<CharSequence> p_Spinner_XY_Adapter, p_Spinner_age_Adapter;
 
     // 프로필 이미지
     ImageView profile_image;
     LinearLayout personLinearLayout;
-    EditText name_et;
+    EditText name_et, phone_et;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +52,14 @@ public class PeopleProfileActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_people_profile);
 
-        XYSpinner = (Spinner)findViewById(R.id.XYSpinner);
-        XYSelect();
+        p_Spinner_age = (Spinner)findViewById(R.id.p_Spinner_age);
+        p_Spinner_XY = (Spinner)findViewById(R.id.p_Spinner_XY);
+        Spinner_Select();
 
         profile_image = (ImageView)findViewById(R.id.profile_image);
         personLinearLayout = (LinearLayout)findViewById(R.id.personLinearLayout);
         name_et = (EditText)findViewById(R.id.name_et);
+        phone_et = (EditText)findViewById(R.id.phone_et);
         personLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,16 +68,34 @@ public class PeopleProfileActivity extends BaseActivity {
         });
     }
 
-    // 성별 선택
-    public void XYSelect(){
-        XYAdapter = ArrayAdapter.createFromResource(this, R.array.xy_array_list, android.R.layout.simple_spinner_item);
-        XYAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);;
-        XYSpinner.setAdapter(XYAdapter);
-        XYSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+    // ============================= 스피너에 어댑터 달기 ================
+    public void Spinner_Select(){
+        // 나이 선택
+        p_Spinner_age_Adapter = ArrayAdapter.createFromResource(this, R.array.p_array_list_age, android.R.layout.simple_spinner_item);
+        p_Spinner_age_Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);;
+        p_Spinner_age.setAdapter(p_Spinner_age_Adapter);
+        p_Spinner_age.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                Toast.makeText(parent.getContext(), "The planet is " +
-//                        parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(parent.getContext(), "나이 The planet is " +
+                        parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+                Member.getInstance().setAge(parent.getItemAtPosition(position).toString());
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        // 성별 선택
+        p_Spinner_XY_Adapter = ArrayAdapter.createFromResource(this, R.array.p_array_list_xy, android.R.layout.simple_spinner_item);
+        p_Spinner_XY_Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);;
+        p_Spinner_XY.setAdapter(p_Spinner_XY_Adapter);
+        p_Spinner_XY.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(parent.getContext(), "성별The planet is " +
+                        parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+                Member.getInstance().setXY(parent.getItemAtPosition(position).toString());
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -193,12 +213,8 @@ public class PeopleProfileActivity extends BaseActivity {
         fileUpload(path);
     }
 
-    // =======================================================================================
+    // ====================================
 
-
-    FirebaseStorage storage = FirebaseStorage.getInstance();
-    // 나무 기둥의 주소
-    StorageReference storageRef = storage.getReferenceFromUrl("gs://petpal-473d4.appspot.com");
 
     // 파일 서버에 업로드
     public void fileUpload(String url){
@@ -220,6 +236,7 @@ public class PeopleProfileActivity extends BaseActivity {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
                 Log.getInstance().signLog("downloadUrl : " + downloadUrl.toString());
+                Member.getInstance().setImageURL(downloadUrl.toString());
                 // downloadUrl.toString() => 프로필 정보로 업로드!
             }
         }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -267,6 +284,9 @@ public class PeopleProfileActivity extends BaseActivity {
             // 잘들어왔는지 확인과정
             Log.getInstance().signLog("프로필 화면에서 카카오톡 아이다 :" + Member.getInstance().getKakaoId());
             Log.getInstance().signLog("프로필 화면에서 회원이름 :" + Member.getInstance().getName());
+            Log.getInstance().signLog("프로필 화면에서 이미지 url :" + Member.getInstance().getImageURL());
+            Log.getInstance().signLog("프로필 화면에서 회원이름 :" + Member.getInstance().getMobile());
+
 
             Intent intent = new Intent(this, DogProfileActivity.class);
             startActivity(intent);
@@ -278,9 +298,14 @@ public class PeopleProfileActivity extends BaseActivity {
         if(TextUtils.isEmpty(name_et.getText().toString())){   // TextUtils.isEmpty : 비어있는지 아닌지 -> 널이나 공백 -> 이 경우는 공백
             name_et.setError("이름을 입력하세요");
             return false;
+        } else if(TextUtils.isEmpty(phone_et.getText().toString())){
+            phone_et.setError("핸드폰 번호를 입력하세요");
+            return false;
         }else {
             Member.getInstance().setName(name_et.getText().toString());
+            Member.getInstance().setMobile(phone_et.getText().toString());
             name_et.setError(null);
+            phone_et.setError(null);
         }
         return true;
     }

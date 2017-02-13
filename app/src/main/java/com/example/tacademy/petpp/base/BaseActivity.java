@@ -11,6 +11,8 @@ import android.widget.EditText;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -22,6 +24,8 @@ public class BaseActivity extends AppCompatActivity {
 
     public FirebaseDatabase firebaseDatabase;
     public DatabaseReference databaseReference;
+    public FirebaseStorage storage;
+    public StorageReference storageRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,10 @@ public class BaseActivity extends AppCompatActivity {
 
         firebaseDatabase    = FirebaseDatabase.getInstance();
         databaseReference   = firebaseDatabase.getReference();
+        // 사진 저장소
+        storage = FirebaseStorage.getInstance();
+        // 나무 기둥의 주소
+        storageRef = storage.getReferenceFromUrl("gs://petpal-473d4.appspot.com");
     }
     // 공통 기능 1
     // primitive 타입

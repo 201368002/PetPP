@@ -6,8 +6,14 @@
 
     <android.support.design.widget.TabLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/maintablayout"/>
+        android:layout_height="48dp"
+        android:id="@+id/maintablayout"
+        android:background="@color/colorWhite"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorTabLine"/>
 
     <view
         android:layout_width="match_parent"

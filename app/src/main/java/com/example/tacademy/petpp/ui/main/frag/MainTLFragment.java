@@ -1,5 +1,6 @@
 package com.example.tacademy.petpp.ui.main.frag;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.tacademy.petpp.R;
+import com.example.tacademy.petpp.ui.DitailPostActivity;
 import com.example.tacademy.petpp.util.ImageProc;
 import com.example.tacademy.petpp.util.Log;
 
@@ -29,6 +31,7 @@ public class MainTLFragment extends Fragment {
 
     ListView main_listView;
     MyAdapter listMyAdapter;
+    FirebaseListAdapter firebaseListAdapter;
     LayoutInflater inflater;
 
     // 임의 데이터
@@ -56,6 +59,7 @@ public class MainTLFragment extends Fragment {
             "가나다7713","가나다146라","라5나15다","가나164다","가3나17다라","2라18나다"};
 
     // ============================
+
     public MainTLFragment() {
     }
 
@@ -122,11 +126,8 @@ public class MainTLFragment extends Fragment {
 
     class ViewHolder{
         TextView tl_name = null;
+        TextView mainText = null;
         ImageView mainImage = null;
-
-//        public ViewHolder(View view) {
-//            tl_name = (TextView)view.findViewById(R.id.tl_name);
-//        }
     }
 
     class MyAdapter extends BaseAdapter {
@@ -158,7 +159,16 @@ public class MainTLFragment extends Fragment {
                         inflater.inflate(R.layout.cell_list_tl_layout, parent, false);
 
                 holder.tl_name = (TextView)convertView.findViewById(R.id.tl_name);
+                holder.mainText = (TextView)convertView.findViewById(R.id.mainText);
                 holder.mainImage = (ImageView)convertView.findViewById(R.id.mainImage);
+
+                holder.mainImage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(), DitailPostActivity.class);
+                        startActivity(intent);
+                    }
+                });
 
                 // 그릇을 뷰에 설정
                 convertView.setTag(holder);
@@ -172,15 +182,16 @@ public class MainTLFragment extends Fragment {
             // 데이터 설정
             // 이름 세팅
             holder.tl_name.setText("" + getItem(position));
+            // 내용 세팅으로 변경해야함. holder.mainText.setText(""+ getItem(position));
             ImageProc.getInstance().drawImage(
                     phDate[position], holder.mainImage
             );
-//            // 무조건 꽉 채우기
-//            holder.mainImage.setScaleType(ImageView.ScaleType.FIT_XY);
+            holder.mainImage.setScaleType(ImageView.ScaleType.FIT_XY);
 
             return convertView;
         }
     }
 
     // =============================
+
 }
