@@ -4,21 +4,35 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.design.widget.TabLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:id="@+id/maintablayout"
-        android:background="@color/colorWhite"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/btn_timeline_on"
+            android:id="@+id/timeLineBtn"
+            android:background="@color/colorWhite"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/btn_map_off"
+            android:id="@+id/mapBtn"
+            android:background="@color/colorWhite"/>
+
+    </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/colorTabLine"/>
 
-    <view
+    <FrameLayout
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        class="android.support.v4.view.ViewPager"
-        android:id="@+id/mainviewpager" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>

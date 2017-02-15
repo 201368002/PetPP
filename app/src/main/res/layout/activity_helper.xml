@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_helper"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.tacademy.petpp.ui.leftmenu.HelperActivity">
+
+    <include layout="@layout/menu_top_header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/topMarginSize">
+
+        <TextView
+            android:text="도움말"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="27dp"
+            android:paddingBottom="26.7dp"
+            android:layout_marginLeft="32dp"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorTLLine"/>
+
+        <TextView
+            android:text="고객센터"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="27dp"
+            android:paddingBottom="26.7dp"
+            android:layout_marginLeft="32dp"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorTLLine"/>
+    </LinearLayout>
+
+</RelativeLayout>

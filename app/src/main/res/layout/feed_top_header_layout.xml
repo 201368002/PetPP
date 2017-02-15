@@ -17,24 +17,24 @@
                 android:background="@color/colorBase"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
 
+
                 <ImageButton
+                    android:src="@mipmap/btn_back"
                     android:layout_width="@dimen/topHeaderSize"
                     android:layout_height="match_parent"
-                    android:id="@+id/MENU"
-                    android:src="@mipmap/btn_menu"
-                    android:layout_gravity="left"
                     android:background="@color/colorBase"
-                    android:onClick="MENU"/>
+                    android:id="@+id/backBtn"
+                    android:onClick="onBackBtn"/>
 
                 <TextView
-                    android:text="PetPal"
+                    android:text="My Feed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/HOME"
+                    android:id="@+id/myFeedText"
                     android:layout_weight="1"
                     android:textSize="20dp"
                     android:layout_gravity="center"
-                    android:onClick="HOME"
+                    android:onClick="onMyFeed"
                     android:textColor="@color/colorWhite"/>
 
                 <ImageButton

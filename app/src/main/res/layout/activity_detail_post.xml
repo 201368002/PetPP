@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.tacademy.petpp.ui.DetailPostActivity">
+
+    <include layout="@layout/menu_top_header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/activity_ditail_post"
+        android:layout_marginTop="@dimen/topMarginSize">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_weight="0"
+            android:layout_marginTop="7.3dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:src="@mipmap/img_people_profile"
+                android:id="@+id/personImage" />
+
+            <TextView
+                android:text="동이동이"
+                android:layout_marginLeft="8dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tl_name"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:textSize="@dimen/fontOneOneSize"/>
+
+            <ImageButton
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@mipmap/btn_more"
+                android:background="@color/colorWhite"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mainImageSize"
+            app:srcCompat="@mipmap/petpal"
+            android:id="@+id/mainImage"
+            android:layout_marginTop="7.3dp"
+            android:scaleType="fitXY"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="37.3dp"
+            android:layout_marginTop="7.3dp"
+            android:layout_marginBottom="6dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/heart"
+                android:scaleType="fitXY"
+                android:paddingTop="7.3dp"
+                android:paddingBottom="6dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="4.7dp"
+                android:background="@color/colorWhite"
+                android:src="@mipmap/btn_heart_off" />
+
+            <TextView
+                android:text="좋아요 68개"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/heart_count"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:textSize="@dimen/fontOneOneSize"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:text="ListView 뷰의 항목 클릭 이벤트 처리 방법   화면 구성 및 처리안드로이드  역하기전용뷰어 보기첨부파일 (1)ListView 뷰의 리스트로부터 사용자는 그것의 항목(아이템)들 중 하나를 선택할 수 있습니다. 이 때 아이템 클릭 이벤트가 발생하고, 프로그래머는 이를 처리하는 작업을 추가적으로 구현할 수 있습니다. 이것이 바로 이번 포스트의 주제입니다.아이템 클릭 이벤트 처리를 하기 위해 필요한 클래스ListView 뷰의 클릭 이벤트를 처리하기 위해서는 OnItemClickListener 인터페이스를 구현하는 클"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="14dp"
+            android:id="@+id/detailMainText"
+            android:textSize="@dimen/fontOneOneSize"
+            android:ellipsize="end"
+            android:scrollbars="vertical"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -4,14 +4,45 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.design.widget.TabLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/myPageTabLayout"/>
-    <view
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/btn_gallery_on"
+            android:id="@+id/myGalleryBtn"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/btn_profile_off"
+            android:id="@+id/myProfileBtn"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/btn_review_off"
+            android:id="@+id/myReviewBtn"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"/>
+
+    </LinearLayout>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        class="android.support.v4.view.ViewPager"
-        android:id="@+id/myPageView" />
+        android:layout_height="1dp"
+        android:background="@color/colorTabLine"/>
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

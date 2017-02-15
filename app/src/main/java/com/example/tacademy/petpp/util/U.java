@@ -51,14 +51,4 @@ public class U {
         this.myLocation = myLocation;
     }
 
-    // 다른 사람 피드인지 나의 피드인지 확인 할 type
-    Boolean myPageType;
-
-    public Boolean getMyPageType() {
-        return myPageType;
-    }
-
-    public void setMyPageType(Boolean myPageType) {
-        this.myPageType = myPageType;
-    }
 }

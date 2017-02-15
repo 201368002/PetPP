@@ -24,7 +24,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import static android.view.View.VISIBLE;
-import static android.view.View.INVISIBLE;
 
 public class MainMapFragment extends Fragment implements OnMapReadyCallback {
     private static final String ARG_PARAM1 = "param1";
@@ -75,27 +74,11 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
         detailMarker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                U.getInstance().setMyPageType(false);
                 Intent intent = new Intent(getActivity(), MyPageActivity.class);
+                intent.putExtra("type", false);
                 startActivity(intent);
             }
         });
-
-      /*  mapLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 클릭시 하단 상세데이터 숨기기
-                detailMarker.setVisibility(INVISIBLE);
-            }
-        });*/
-
-/*        map.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                // 클릭시 하단 상세데이터 숨기기
-                detailMarker.setVisibility(INVISIBLE);
-            }
-        });*/
         // ===================================================================
 
         // 초기화

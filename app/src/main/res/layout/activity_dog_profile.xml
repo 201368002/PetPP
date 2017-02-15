@@ -8,64 +8,54 @@
     android:orientation="vertical"
     tools:context="com.example.tacademy.petpp.DogProfileActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:popupTheme="@style/AppTheme.PopupOverlay">
-
-        <Button
-            android:text="이전"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:padding="5dp"
-            android:id="@+id/onBACK"
-            android:onClick="onBACK"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="반려견을 소개해요!"
-            android:textColor="#FFFFFF"
-            />
-
-        <Button
-            android:text="완료"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:padding="5dp"
-            android:onClick="onDProfileNext"
-            />
-
-    </android.support.v7.widget.Toolbar>
+    <include layout="@layout/menu_top_header_layout"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
+        android:layout_marginTop="@dimen/topMarginSize"
+        android:layout_marginBottom="10dp"
         android:layout_above="@+id/linearLayout">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/dog_profile_image"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_gravity="center"
-                android:src="@mipmap/profile"
-                android:onClick="onDImageView"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/dog_profile_image"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@mipmap/img_dog_profile"
+                    android:onClick="onDImageView"/>
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@mipmap/btn_profile_camera"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/btn_profile_camera"
+                    android:onClick="onDImageView"/>
+
+            </RelativeLayout>
 
             <TextView
                 android:text="* 이름"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:id="@+id/textView4"
-                android:paddingTop="10dp"/>
+                android:layout_marginTop="33.9dp"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -74,101 +64,103 @@
                 android:ems="10"
                 android:id="@+id/editText"
                 android:background="@drawable/edittext_back_line"
-                android:paddingTop="5dp"/>
+                android:layout_marginTop="7.7dp"/>
 
             <TextView
                 android:text="* 견종"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:id="@+id/textView6"
-                android:paddingTop="10dp"/>
+                android:layout_marginTop="30dp"/>
 
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:id="@+id/dog_Spinner_Type"
-                android:paddingTop="5dp"/>
+                android:layout_marginTop="7.7dp"/>
 
             <TextView
                 android:text="* 나이"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:id="@+id/textView7"
-                android:paddingTop="10dp"/>
+                android:layout_marginTop="30dp"/>
 
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:id="@+id/dog_Spinner_age"
-                android:paddingTop="5dp"/>
+                android:layout_marginTop="7.7dp"/>
 
             <TextView
                 android:text="* 성별"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView8"
-                android:paddingTop="10dp"/>
+                android:layout_marginTop="30dp"/>
 
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:id="@+id/dog_Spinner_XY"
-                android:paddingTop="5dp" />
+                android:layout_marginTop="7.7dp" />
 
             <TextView
                 android:text="무게"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView9"
-                android:paddingTop="10dp"/>
+                android:layout_marginTop="30dp"/>
 
 
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:id="@+id/dog_Spinner_kg"
-                android:paddingTop="5dp"/>
-
-            <TextView
-                android:text="성격"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:paddingTop="10dp"
-                android:id="@+id/textView10" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:background="@drawable/edittext_back_line"
-                android:paddingTop="5dp"/>
-
-            <TextView
-                android:text="질병 및 특이사항"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:paddingTop="10dp"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:background="@drawable/edittext_back_line"
-                android:paddingTop="5dp"/>
+                android:layout_marginTop="7.7dp"/>
 
             <TextView
                 android:text="* 중성화여부"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:paddingTop="10dp"/>
+                android:layout_marginTop="30dp"/>
 
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:id="@+id/dog_Spinner_yn"
-                android:paddingTop="5dp"/>
+                android:layout_marginTop="7.7dp"/>
+
+            <TextView
+                android:text="성격"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="30dp"
+                android:id="@+id/textView10" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:background="@drawable/edittext_back_line"
+                android:layout_marginTop="7.7dp"/>
+
+            <TextView
+                android:text="질병 및 특이사항"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="30dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:background="@drawable/edittext_back_line"
+                android:layout_marginTop="7.7dp"/>
+
+
 
         </LinearLayout>
     </ScrollView>
@@ -176,18 +168,22 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/linearLayout">
+        android:id="@+id/linearLayout"
+        android:background="@color/colorBase">
 
         <Button
             android:text="건너뛰기"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/button3"
+            android:id="@+id/jumpBtn"
             android:layout_weight="1"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorBase"
+            android:visibility="visible"
             android:onClick="onTLNext"/>
 
         <Button
@@ -195,7 +191,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/button2"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorBase"
             android:layout_weight="1" />
+
     </LinearLayout>
 
 </RelativeLayout>

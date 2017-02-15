@@ -18,34 +18,33 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay">
 
                 <ImageButton
+                    android:src="@mipmap/btn_back"
                     android:layout_width="@dimen/topHeaderSize"
                     android:layout_height="match_parent"
-                    android:id="@+id/MENU"
-                    android:src="@mipmap/btn_menu"
-                    android:layout_gravity="left"
                     android:background="@color/colorBase"
-                    android:onClick="MENU"/>
+                    android:id="@+id/backBtn"
+                    android:onClick="onBackBtn"/>
 
                 <TextView
-                    android:text="PetPal"
+                    android:text="이용약관"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/HOME"
-                    android:layout_weight="1"
-                    android:textSize="20dp"
-                    android:layout_gravity="center"
-                    android:onClick="HOME"
+                    android:id="@+id/title_text"
+                    android:textSize="@dimen/fontOneForeSize"
+                    android:layout_gravity="center|left"
+                    android:layout_marginLeft="50dp"
                     android:textColor="@color/colorWhite"/>
 
-                <ImageButton
-                    android:layout_width="@dimen/topHeaderSize"
+                <Button
+                    android:text="다음"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:id="@+id/writeBtn"
-                    android:src="@mipmap/btn_writing"
+                    android:textSize="@dimen/fontOneForeSize"
                     android:background="@color/colorBase"
-                    android:layout_weight="1"
+                    android:id="@+id/nextBtn"
                     android:layout_gravity="right"
-                    android:onClick="onWriteBtn"/>
+                    android:onClick="onNextBtn"
+                    android:visibility="visible"/>
 
             </android.support.v7.widget.Toolbar>
 

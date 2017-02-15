@@ -10,12 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_weight="0"
+        android:layout_marginLeft="7.3dp"
+        android:layout_marginRight="7.3dp"
         android:layout_marginTop="7.3dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="30dp"
             android:layout_height="match_parent"
-            android:src="@mipmap/profile"
+            android:src="@mipmap/img_people_profile"
             android:id="@+id/personImage" />
 
         <TextView
@@ -33,7 +35,8 @@
             android:layout_height="match_parent"
             android:id="@+id/scaImageView"
             android:scaleType="fitXY"
-            android:src="@mipmap/profile" />
+            android:background="@color/colorWhite"
+            android:src="@mipmap/icon_dogface" />
 
         <TextView
             android:text="*4"
@@ -67,8 +70,9 @@
             android:layout_height="match_parent"
             android:id="@+id/heart"
             android:scaleType="fitXY"
+            android:background="@color/colorWhite"
             android:layout_marginLeft="12dp"
-            android:src="@drawable/heart_off" />
+            android:src="@mipmap/btn_heart_off" />
 
         <TextView
             android:text="좋아요 68개"

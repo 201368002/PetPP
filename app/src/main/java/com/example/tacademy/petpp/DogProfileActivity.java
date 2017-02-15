@@ -8,14 +8,17 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tacademy.petpp.base.BaseActivity;
 import com.example.tacademy.petpp.model.Member;
 import com.example.tacademy.petpp.ui.main.act.MainTLActivity;
 import com.example.tacademy.petpp.util.Log;
+import com.example.tacademy.petpp.util.StorageHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,16 +40,38 @@ import rx.schedulers.Schedulers;
 
 public class DogProfileActivity extends BaseActivity {
 
+    // 상단바 타이틀
+    TextView title_text;
+    Button nextBtn, jumpBtn;
+
     Spinner dog_Spinner_age, dog_Spinner_Type, dog_Spinner_XY, dog_Spinner_kg, dog_Spinner_yn;
     ArrayAdapter<CharSequence> dog_Spinner_age_Adapter, dog_Spinner_Type_Adapter, dog_Spinner_XY_Adapter, dog_Spinner_kg_Adapter, dog_Spinner_yn_Adapter;
 
     ImageView dog_profile_image;
+    Boolean type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         actList.add(this); // actList에 B를 추가해줍니다.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dog_profile);
+
+        // 상단바
+        title_text = (TextView)findViewById(R.id.title_text);
+        title_text.setText("반려견을 소개해요");
+        nextBtn = (Button)findViewById(R.id.nextBtn);
+        nextBtn.setText("완료");
+
+        jumpBtn = (Button)findViewById(R.id.jumpBtn);
+
+        Intent intent = getIntent();
+        type = intent.getExtras().getBoolean("type");
+        // 프로필 수정이면 이미 저장되있는 데이터를 세팅해준다.
+        if(type==true){
+            // 프로필 수정이 맞다. -> 데이터 세팅
+            jumpBtn.setVisibility(View.INVISIBLE);
+            Toast.makeText(this, "반려견의 프로필을 수정해주세요.", Toast.LENGTH_SHORT).show();
+        }
 
         dog_Spinner_age = (Spinner)findViewById(R.id.dog_Spinner_age);
         dog_Spinner_Type = (Spinner)findViewById(R.id.dog_Spinner_Type);
@@ -59,9 +84,14 @@ public class DogProfileActivity extends BaseActivity {
         dog_profile_image = (ImageView)findViewById(R.id.dog_profile_image);
     }
 
+    // 다음 ========================================================
+    // 견주 프로필작성하고 다음 누를 때에 사람에 대한 db는 저장해야함. 건너띄기하면 ... 모두 저장안된다..
+    // 견주 프로필 다음 : 견주 디비 저장, 반려견 프로필 완료 : 반려견 디비 저장, 반려견 프로필 건너뛰기 : 타임라인으로 이동
+    // 아니면 건너뛰기 할 때 사람에 대한 정보만 디비에 저장.
+
     // 모두 입력 확인 후 서버에 저장하고 메인 화면으로 이동
-    public void onDProfileNext(View view){
-        onUserSaved();
+    public void onNextBtn(View view){
+        onUserSaved(view);
     }
 
     // 서버에 저장하지 않고 메인 화면으로 이동
@@ -70,6 +100,46 @@ public class DogProfileActivity extends BaseActivity {
         Intent intent = new Intent(this, MainTLActivity.class);
         startActivity(intent);
         actFinish();
+    }
+
+
+    // 회원 정보 디비에 저장
+    public void onUserSaved(View view){
+
+        // 1. 로딩
+        showProgress("회원가입중...");
+        // 2. 디비에 회원정보 입력
+
+        // 회원정보 생성
+        String kakaoId  = Member.getInstance().getKakaoId();
+
+        // 디비 입력
+        databaseReference.child("users").child(kakaoId).setValue(Member.getInstance())
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        hideProgress();
+                        if(task.isSuccessful()){
+                            // 디비 저장 완료. 메인화면으로 이동
+                            StorageHelper.getInstance().setBoolean(DogProfileActivity.this, "LOGIN", true);
+                            Log.getInstance().signLog("회원정보 입력 모두 완료, 메인화면으로 이동");
+
+                            if(type == true){
+                                DogProfileActivity.this.finish();
+                            }else {
+                                Intent intent = new Intent(DogProfileActivity.this, MainTLActivity.class);
+                                startActivity(intent);
+                                actFinish();
+                            }
+                        }
+                        else{
+                            // 회원정보 디비 저장 실패
+                            Toast.makeText(DogProfileActivity.this, "서버에 오류가 있습니다. 다시 실행해주시기 바랍니다.", Toast.LENGTH_SHORT).show();
+                            Log.getInstance().signLog("회원정보 디비 저장 실패");
+                            actFinish();
+                        }
+                    }
+                });
     }
 
     // ============================= 스피너에 어댑터 달기 ================
@@ -150,7 +220,6 @@ public class DogProfileActivity extends BaseActivity {
             }
         });
     }
-
 
     // ============================== 카메라 =============================
     SweetAlertDialog alert, alert2;
@@ -320,40 +389,4 @@ public class DogProfileActivity extends BaseActivity {
 
     // ========================================================================================
 
-    // 회원 정보 디비에 저장
-    public void onUserSaved(){
-
-        // 1. 로딩
-        showProgress("회원가입중...");
-        // 2. 디비에 회원정보 입력
-
-        // 회원정보 생성
-        String kakaoId  = Member.getInstance().getKakaoId();
-
-        // 디비 입력
-        databaseReference.child("users").child(kakaoId).setValue(Member.getInstance())
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        hideProgress();
-                        if(task.isSuccessful()){
-                            // 디비 저장 완료. 메인화면으로 이동
-
-                            // 다음 앱에 들어올 때에 타임라인으로 바로 가기 위한 작업
-                            Member.getInstance().setLg(true);   // true 일경우 로그인 함 -> 로그아웃 할 때 false로
-                            Log.getInstance().signLog("회원정보 입력 모두 완료, 메인화면으로 이동");
-
-                            Intent intent = new Intent(DogProfileActivity.this, MainTLActivity.class);
-                            startActivity(intent);
-                            actFinish();
-                        }
-                        else{
-                            // 회원정보 디비 저장 실패
-                            Toast.makeText(DogProfileActivity.this, "서버에 오류가 있습니다. 다시 실행해주시기 바랍니다.", Toast.LENGTH_SHORT).show();
-                            Log.getInstance().signLog("회원정보 디비 저장 실패");
-                            actFinish();
-                        }
-                    }
-                });
-    }
 }

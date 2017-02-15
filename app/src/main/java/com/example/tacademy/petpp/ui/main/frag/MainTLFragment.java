@@ -13,7 +13,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.tacademy.petpp.R;
-import com.example.tacademy.petpp.ui.DitailPostActivity;
+import com.example.tacademy.petpp.ui.DetailPostActivity;
+import com.example.tacademy.petpp.ui.mypage.act.MyPageActivity;
 import com.example.tacademy.petpp.util.ImageProc;
 import com.example.tacademy.petpp.util.Log;
 
@@ -31,7 +32,6 @@ public class MainTLFragment extends Fragment {
 
     ListView main_listView;
     MyAdapter listMyAdapter;
-    FirebaseListAdapter firebaseListAdapter;
     LayoutInflater inflater;
 
     // 임의 데이터
@@ -128,6 +128,7 @@ public class MainTLFragment extends Fragment {
         TextView tl_name = null;
         TextView mainText = null;
         ImageView mainImage = null;
+        ImageView personImage = null;
     }
 
     class MyAdapter extends BaseAdapter {
@@ -161,14 +162,24 @@ public class MainTLFragment extends Fragment {
                 holder.tl_name = (TextView)convertView.findViewById(R.id.tl_name);
                 holder.mainText = (TextView)convertView.findViewById(R.id.mainText);
                 holder.mainImage = (ImageView)convertView.findViewById(R.id.mainImage);
+                holder.personImage = (ImageView)convertView.findViewById(R.id.personImage);
 
                 holder.mainImage.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), DitailPostActivity.class);
+                        Intent intent = new Intent(getActivity(), DetailPostActivity.class);
                         startActivity(intent);
                     }
                 });
+                holder.personImage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(), MyPageActivity.class);
+                        intent.putExtra("type", false);
+                        startActivity(intent);
+                    }
+                });
+
 
                 // 그릇을 뷰에 설정
                 convertView.setTag(holder);

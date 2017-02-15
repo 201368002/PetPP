@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_notify"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.tacademy.petpp.ui.leftmenu.NotifyActivity">
+
+    <include layout="@layout/menu_top_header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/topMarginSize"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="12.7dp"
+                android:paddingBottom="18.3dp"
+                android:paddingTop="18.3dp"
+                android:onClick="onNotifyItem1">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@mipmap/btn_notice_on"
+                    android:layout_weight="0"
+                    android:id="@+id/notify_item1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:text="펫팔 공동구매 관련 공지"
+                    android:gravity="center"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2017/02/05"
+                    android:layout_gravity="center"
+                    android:paddingRight="21dp"
+                    android:layout_weight="0"/>
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorTLLine"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:gravity="center"
+                android:id="@+id/notify_item_detail1"
+                android:layout_marginTop="18.3dp">
+
+                <TextView
+                    android:text="공동구매한 지위팩 사료가 도착했답니다^^~!"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView"
+                    android:layout_weight="1"
+                    android:textAlignment="center" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="21dp"
+                    app:srcCompat="@drawable/pp144"
+                    android:id="@+id/imageView7"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:text="기호성 좋은 사료에요~\n이번 펫팔공구로 싸게 사가시는 분들 정말 굳 초이스 랍니ㅏㄷ."
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="21dp"
+                    android:id="@+id/textView24"
+                    android:layout_weight="1"
+                    android:textAlignment="center" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorTLLine"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="12.7dp"
+                android:paddingBottom="18.3dp"
+                android:paddingTop="18.3dp"
+                android:onClick="onNotifyItem2">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@mipmap/btn_notice_on"
+                    android:layout_weight="0"
+                    android:id="@+id/notify_item2"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:text="펫팔이 업데이트 했어요~"
+                    android:gravity="center"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2017/02/03"
+                    android:layout_gravity="center"
+                    android:paddingRight="21dp"
+                    android:layout_weight="0"/>
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorTLLine"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:gravity="center"
+                android:id="@+id/notify_item_detail2"
+                android:layout_marginTop="18.3dp">
+
+                <TextView
+                    android:text="2공동구매한 지위팩 사료가 도착했답니다^^~!"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="21dp"
+                    app:srcCompat="@drawable/pp144"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:text="기호성 좋은 사료에요~\n이번 펫팔공구로 싸게 사가시는 분들 정말 굳 초이스 랍니ㅏㄷ."
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="21dp"
+                    android:layout_weight="1"
+                    android:textAlignment="center" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorTLLine"/>
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorTLLine"/>
+
+        </LinearLayout>
+
+    </LinearLayout></ScrollView>
+</RelativeLayout>

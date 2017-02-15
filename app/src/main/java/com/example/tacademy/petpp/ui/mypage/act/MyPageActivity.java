@@ -2,47 +2,130 @@ package com.example.tacademy.petpp.ui.mypage.act;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.tacademy.petpp.ChatActivity;
+import com.example.tacademy.petpp.DogProfileActivity;
+import com.example.tacademy.petpp.PeopleProfileActivity;
 import com.example.tacademy.petpp.R;
 import com.example.tacademy.petpp.base.BaseActivity;
+import com.example.tacademy.petpp.ui.WriteAcitivity;
 import com.example.tacademy.petpp.ui.mypage.frag.MyProfileFragment;
 import com.example.tacademy.petpp.ui.mypage.frag.MyReviewFragment;
 import com.example.tacademy.petpp.ui.mypage.frag.MyViewFragment;
-import com.example.tacademy.petpp.util.Log;
-import com.example.tacademy.petpp.util.U;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static com.example.tacademy.petpp.R.mipmap.btn_gallery_off;
+import static com.example.tacademy.petpp.R.mipmap.btn_gallery_on;
+import static com.example.tacademy.petpp.R.mipmap.btn_profile_off;
+import static com.example.tacademy.petpp.R.mipmap.btn_profile_on;
+import static com.example.tacademy.petpp.R.mipmap.btn_review_off;
+import static com.example.tacademy.petpp.R.mipmap.btn_review_on;
 
 public class MyPageActivity extends BaseActivity {
 
-    TabLayout myPageTabLayout;
-    ViewPager myPageView;
-    FragmentAdapter fragmentAdapter;
+    Button scheduleBtn, messageBtn, editPProfileBtn, editDProfileBtn;
 
-    Button scheduleBtn, messageBtn, editProfileBtn;
+    ImageButton myGalleryBtn, myProfileBtn, myReviewBtn;
+
+    ImageButton writeBtn;
+    TextView myFeedText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_page);
 
-        myPageTabLayout = (TabLayout) findViewById(R.id.myPageTabLayout);
-        myPageView = (ViewPager)findViewById(R.id.myPageView);
+        // 상단바
+        writeBtn = (ImageButton)findViewById(R.id.writeBtn);
+        myFeedText = (TextView)findViewById(R.id.myFeedText);
 
-        scheduleBtn = (Button)findViewById(R.id.scheduleBtn);
-        messageBtn = (Button)findViewById(R.id.messageBtn);
-        editProfileBtn = (Button)findViewById(R.id.editProfileBtn);
+        // [ UI 구성 ] =======================================================
 
-        // ======================= 이벤트 리스너 =============================
+        scheduleBtn     = (Button)findViewById(R.id.scheduleBtn);
+        messageBtn      = (Button)findViewById(R.id.messageBtn);
+        editPProfileBtn = (Button)findViewById(R.id.editPProfileBtn);
+        editDProfileBtn = (Button)findViewById(R.id.editDProfileBtn);
+
+        myGalleryBtn    = (ImageButton)findViewById(R.id.myGalleryBtn);
+        myProfileBtn    = (ImageButton)findViewById(R.id.myProfileBtn);
+        myReviewBtn     = (ImageButton)findViewById(R.id.myReviewBtn);
+
+        MyViewFragment myViewFragment       = new MyViewFragment();
+        MyProfileFragment myProfileFragment = new MyProfileFragment();
+        MyReviewFragment myReviewFragment   = new MyReviewFragment();
+
+        replaceFragment(myViewFragment);
+
+        // ==================================================================
+
+        Intent intent = getIntent();
+        Boolean type = intent.getExtras().getBoolean("type");
+
+        if(type == true){
+            // 오른쪽 메뉴에서 마이피드페이지 넘어올 경우
+            // 산책예약버튼, 메시지보내기 버튼 숨기기
+            scheduleBtn.setVisibility(INVISIBLE);
+            messageBtn.setVisibility(INVISIBLE);
+            // 프로필 수정 버튼 보이기
+            editPProfileBtn.setVisibility(VISIBLE);
+            editDProfileBtn.setVisibility(VISIBLE);
+            // 상단바 게시글 작성 버튼 보이기
+            writeBtn.setVisibility(VISIBLE);
+            // 상단바 타이틀 이름 설정
+            myFeedText.setText("My Feed");
+        }else{
+            // 산책예약버튼, 메시지보내기 버튼 보이기
+            scheduleBtn.setVisibility(VISIBLE);
+            messageBtn.setVisibility(VISIBLE);
+            // 프로필 수정 버튼 숨기기
+            editPProfileBtn.setVisibility(INVISIBLE);
+            editDProfileBtn.setVisibility(INVISIBLE);
+            // 상단바 게시글 작성 버튼 숨기기
+            writeBtn.setVisibility(INVISIBLE);
+            // 상단바 타이틀 상대방 견주 이름으로 설정
+            myFeedText.setText("다른 견주 페이지");
+        }
+
+        // [ 마이페이지 프레그먼트 이동 ] ======================================
+
+        myGalleryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myGalleryBtn.setImageResource(btn_gallery_on);
+                myProfileBtn.setImageResource(btn_profile_off);
+                myReviewBtn.setImageResource(btn_review_off);
+                replaceFragment(myViewFragment);
+            }
+        });
+        myProfileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myGalleryBtn.setImageResource(btn_gallery_off);
+                myProfileBtn.setImageResource(btn_profile_on);
+                myReviewBtn.setImageResource(btn_review_off);
+                replaceFragment(myProfileFragment);
+            }
+        });
+        myReviewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myGalleryBtn.setImageResource(btn_gallery_off);
+                myProfileBtn.setImageResource(btn_profile_off);
+                myReviewBtn.setImageResource(btn_review_on);
+                replaceFragment(myReviewFragment);
+            }
+        });
+
+
+        // [ 버튼 이벤트 리스너 ] =============================================
 
         // 산책 예약하기 버튼
         scheduleBtn.setOnClickListener(new View.OnClickListener() {
@@ -60,80 +143,50 @@ public class MyPageActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 // 채팅 화면으로 이동
+                Intent intent = new Intent(MyPageActivity.this, ChatActivity.class);
+                startActivity(intent);
+
             }
         });
 
-        // 프로필 수정 버튼
-        editProfileBtn.setOnClickListener(new View.OnClickListener() {
+        // 사람 프로필 수정 버튼
+        editPProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 프로필 수정 화면으로 이동.
+                // 사람프로필 화면으로 이동
+                Intent intent = new Intent(MyPageActivity.this, PeopleProfileActivity.class);
+                intent.putExtra("type", true);
+                startActivity(intent);
             }
         });
 
-        // ==================================================================
-        if(U.getInstance().getMyPageType() == true){   // 오른쪽 메뉴에서 마이피드페이지 넘어올 경우
-            // 산책예약버튼, 메시지보내기 버튼 숨기기
-            scheduleBtn.setVisibility(INVISIBLE);
-            messageBtn.setVisibility(INVISIBLE);
-            // 프로필 수정 버튼 보이기
-            editProfileBtn.setVisibility(VISIBLE);
-        }else{
-            // 산책예약버튼, 메시지보내기 버튼 보이기
-            scheduleBtn.setVisibility(VISIBLE);
-            messageBtn.setVisibility(VISIBLE);
-            // 프로필 수정 버튼 숨기기
-            editProfileBtn.setVisibility(INVISIBLE);
-        }
+        // 반려견 프로필 수정 화면으로 이동.
+        editDProfileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 반려견프로필 화면으로 이동
+                Intent intent = new Intent(MyPageActivity.this, DogProfileActivity.class);
+                intent.putExtra("type", true);
+                startActivity(intent);
+            }
+        });
+
         // ===================================================================
 
-        fragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
-        myPageView.setAdapter(fragmentAdapter);
-        myPageTabLayout.setupWithViewPager(myPageView);
     }
 
-    // 프래그먼트 어댑터
-    class FragmentAdapter extends FragmentPagerAdapter {
-
-        // 프레그먼트 화면 개수 및 정의
-        Fragment[] frags = new Fragment[]{
-                new MyViewFragment(),
-                new MyProfileFragment(),
-                new MyReviewFragment()
-        };
-
-        // 프레그먼트 화면 제목 설정
-        String[] titles = new String[]{
-                "사진첩", "프로필", "산책후기"
-        };
-
-        // 생성자
-        public FragmentAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return frags[position];
-        }
-
-        @Override
-        public int getCount() {
-            return frags.length;
-        }
-
-        // 오버라이드 getPageTitle
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return titles[position];
-        }
-
-
+    // 프레그 먼트로 이동
+    public void replaceFragment(Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.commit();
     }
 
-    // 이전 버튼
-    public void onBACK(){
-        Log.getInstance().log("백버튼.......");
+    // 글쓰기 버튼 클릭시
+    public void onWriteBtn(View view){
+        Intent intent = new Intent(MyPageActivity.this, WriteAcitivity.class);
+        startActivity(intent);
     }
 
 }

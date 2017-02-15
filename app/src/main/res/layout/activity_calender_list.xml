@@ -7,28 +7,9 @@
     android:layout_height="match_parent"
     tools:context="com.example.tacademy.petpp.ui.leftmenu.CalenderListActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:popupTheme="@style/AppTheme.PopupOverlay">
-
-        <Button
-            android:text="이전"
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:padding="5dp"
-            android:id="@+id/onBACK"
-            android:onClick="onBACK"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="시터 일정"
-            android:gravity="center"/>
-
-    </android.support.v7.widget.Toolbar>
+    <include android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/menu_top_header_layout"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

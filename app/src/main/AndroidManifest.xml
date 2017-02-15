@@ -17,7 +17,7 @@
     <application
         android:name=".util.MyApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/petpal_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
@@ -106,7 +106,14 @@
             android:name=".ui.leftmenu.CalWriteActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.DitailPostActivity"></activity>
+        <activity android:name=".ui.DetailPostActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ui.leftmenu.NotifyActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ui.leftmenu.AlramActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ui.leftmenu.HelperActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

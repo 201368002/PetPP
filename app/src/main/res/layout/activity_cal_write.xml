@@ -7,74 +7,114 @@
     android:layout_height="match_parent"
     tools:context="com.example.tacademy.petpp.ui.leftmenu.CalWriteActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:popupTheme="@style/AppTheme.PopupOverlay">
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <Button
-            android:text="이전"
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:padding="5dp"
-            android:id="@+id/onBACK"
-            android:onClick="onBACK"/>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/topHeaderSize"
+            android:background="@color/colorBase"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="시터 일정 등록"
-            android:gravity="center"/>
+            <ImageButton
+                android:src="@mipmap/btn_back"
+                android:layout_width="@dimen/topHeaderSize"
+                android:layout_height="match_parent"
+                android:background="@color/colorBase"
+                android:id="@+id/backBtn"
+                android:onClick="onBackBtn"/>
 
-        <Button
-            android:text="완료"
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:padding="5dp"
-            android:layout_gravity="right"/>
+            <TextView
+                android:text="시터 등록"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/title_text"
+                android:textSize="@dimen/fontOneForeSize"
+                android:layout_gravity="center|left"
+                android:layout_marginLeft="50dp"
+                android:textColor="@color/colorWhite"/>
 
-    </android.support.v7.widget.Toolbar>
+            <Button
+                android:text="완료"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="@dimen/fontOneForeSize"
+                android:background="@color/colorBase"
+                android:layout_gravity="right"
+                android:visibility="visible"/>
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar">
+        android:layout_marginTop="@dimen/topMarginSize">
 
         <TextView
-            android:text="* 주소"
+            android:text="* 산책 가능 지역"
             android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/fontOneForeSize"
             android:id="@+id/textView18" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:hint="주소 입력"
+            android:layout_marginTop="15dp"
+            android:textSize="@dimen/fontOneForeSize"
+            android:hint="동으로 입력해주세요. ex) 송내동, 오금동, 남영동"
             android:ems="10" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"/>
 
         <TextView
             android:text="* 날짜 선택"
+            android:textSize="@dimen/fontOneForeSize"
+            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView21" />
 
         <TextView
             android:text="YY-MM-DD"
+            android:layout_marginTop="15dp"
+            android:textSize="@dimen/fontOneForeSize"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <CalendarView
             android:layout_width="match_parent"
+            android:layout_marginTop="15dp"
             android:layout_height="wrap_content"
             android:id="@+id/calendarView"
             android:visibility="gone"/>
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"/>
+
         <TextView
             android:text="* 산책 시간 선택"
+            android:textSize="@dimen/fontOneForeSize"
+            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView19" />
@@ -83,43 +123,82 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
+            android:textSize="@dimen/fontOneForeSize"
             android:hint="00시 ~ 00시"
             android:ems="10"
+            android:layout_marginTop="15dp"
             android:id="@+id/editText6" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"/>
 
         <TextView
             android:text="* 성별"
+            android:textSize="@dimen/fontOneForeSize"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textView20" />
+            android:id="@+id/textView20"
+            android:layout_marginTop="15dp"
+            />
 
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/schedule_dog_XYSpinner" />
+            android:id="@+id/schedule_dog_XYSpinner"
+            android:layout_marginTop="15dp"
+            />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"/>
 
         <TextView
-            android:text="무게"
+            android:text="* 무게"
+            android:textSize="@dimen/fontOneForeSize"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textView22" />
+            android:id="@+id/textView22"
+            android:layout_marginTop="15dp"
+            />
 
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/spinner6" />
+            android:id="@+id/spinner6"
+            android:layout_marginTop="15dp"
+            />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"/>
 
         <TextView
             android:text="* 중성화여부"
+            android:textSize="@dimen/fontOneForeSize"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textView23" />
+            android:id="@+id/textView23"
+            android:layout_marginTop="20dp"
+            />
 
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/spinner7" />
+            android:id="@+id/spinner7"
+            android:layout_marginTop="15dp"
+            />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"/>
 
     </LinearLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

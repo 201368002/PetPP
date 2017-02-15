@@ -15,91 +15,142 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/leftmenu"
-        android:layout_marginRight="110dp"
-        android:background="#FFFFFF"
+        android:layout_marginRight="60dp"
+        android:background="@color/colorWhite"
         android:visibility="invisible">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingLeft="16.3dp"
             android:padding="20dp">
 
-            <ImageButton
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                app:srcCompat="@mipmap/profile"
-                android:id="@+id/myImage"
-                android:onClick="onMypageImageBtn"
-                android:scaleType="fitCenter"/>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_marginTop="52dp">
 
-            <TextView
-                android:text="김가람"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:id="@+id/myName"
-                android:gravity="center"/>
+                <ImageButton
+                    android:layout_width="73dp"
+                    android:layout_height="73dp"
+                    android:src="@mipmap/img_people_profile"
+                    android:id="@+id/myImage"
+                    android:scaleType="fitCenter"
+                    android:onClick="onMypageImageBtn"
+                    android:background="@color/colorWhite"/>
 
-            <TextView
-                android:text="1000 point"
+                <TextView
+                    android:text="김가람"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/myName"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="@dimen/fontOneFiveSize"
+                    android:textStyle="bold"/>
+            </RelativeLayout>
+
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:id="@+id/myPoint"
-                android:gravity="center"
-                android:onClick="onMyPointTV"/>
+                android:layout_height="1dp"
+                android:layout_marginTop="16.3dp"
+                android:background="@color/colorTLLine"/>
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="80dp">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16.3dp"
+                android:onClick="onMyPointBtn">
 
-                <Button
-                    android:text="채팅\n리스트"
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@mipmap/icon_point"
+                    android:layout_marginLeft="13dp"/>
+                <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/chatBtn"
-                    android:layout_weight="1"
-                    android:onClick="onChatBtn"/>
-
-                <Button
-                    android:text="예약\n리스트"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/reservationList"
-                    android:layout_weight="1"
-                    android:onClick="onScheBtn"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="29.7dp"
+                    android:text="9625 point"
+                    android:layout_gravity="center"/>
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="80dp">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16.3dp"
+                android:onClick="onChatBtn">
 
-                <Button
-                    android:text="시터\n등록하기"
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@mipmap/icon_chat"
+                    android:layout_marginLeft="13dp"/>
+                <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/calender"
-                    android:layout_weight="1"
-                    android:onClick="onCalBtn"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="29.7dp"
+                    android:text="채팅 리스트"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
 
-                <Button
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16.3dp"
+                android:onClick="onScheBtn">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@mipmap/icon_booking"
+                    android:layout_marginLeft="13dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="29.7dp"
+                    android:text="예약 리스트"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16.3dp"
+                android:onClick="onCalBtn">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@mipmap/icon_sitter"
+                    android:layout_marginLeft="13dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="29.7dp"
+                    android:text="시터 등록하기"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16.3dp"
+                android:onClick="onSettingBtn">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@mipmap/icon_set"
+                    android:layout_marginLeft="13dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="29.7dp"
                     android:text="설정"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/settingBtn"
-                    android:onClick="onSettingBtn"
-                    android:layout_weight="1" />
+                    android:layout_gravity="center"/>
             </LinearLayout>
-
-            <Button
-                android:text="카카오계정 로그아웃"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:id="@+id/logoutBtn"
-                android:onClick="onLogoutBtn"
-                android:background="@drawable/kakao_login_button_background"
-                android:textStyle="normal|bold" />
 
         </LinearLayout>
 

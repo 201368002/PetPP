@@ -10,7 +10,8 @@ import java.util.Map;
 public class Post {
 
     String kakaoId, name, content, image;
-
+    // heart 카운트(좋아요 개수)
+    int heart_count;
     Map<String, Boolean> hearts = new HashMap<>();
 
     public Post() {
@@ -63,6 +64,14 @@ public class Post {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public int getHeart_count() {
+        return heart_count;
+    }
+
+    public void setHeart_count(int heart_count) {
+        this.heart_count = heart_count;
     }
 
     public Map<String, Boolean> getHearts() {

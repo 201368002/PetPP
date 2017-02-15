@@ -8,25 +8,20 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.example.tacademy.petpp.LoginActivity;
 import com.example.tacademy.petpp.R;
 import com.example.tacademy.petpp.base.BaseActivity;
-import com.example.tacademy.petpp.model.Member;
 import com.example.tacademy.petpp.ui.WriteAcitivity;
 import com.example.tacademy.petpp.ui.leftmenu.CalenderListActivity;
 import com.example.tacademy.petpp.ui.leftmenu.ChatListActivity;
@@ -38,9 +33,6 @@ import com.example.tacademy.petpp.ui.main.frag.MainTLFragment;
 import com.example.tacademy.petpp.ui.mypage.act.MyPageActivity;
 import com.example.tacademy.petpp.util.GpsDetecting;
 import com.example.tacademy.petpp.util.Log;
-import com.example.tacademy.petpp.util.U;
-import com.kakao.usermgmt.UserManagement;
-import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.squareup.otto.Subscribe;
 
 import java.util.List;
@@ -49,28 +41,44 @@ import java.util.Locale;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static android.os.Build.VERSION_CODES.M;
+import static com.example.tacademy.petpp.R.mipmap.btn_map_off;
+import static com.example.tacademy.petpp.R.mipmap.btn_map_on;
+import static com.example.tacademy.petpp.R.mipmap.btn_timeline_off;
+import static com.example.tacademy.petpp.R.mipmap.btn_timeline_on;
 
 public class MainTLActivity extends BaseActivity {
 
-    // ==
-    TabLayout maintablayout;
-    ViewPager mainviewpager;
-    FragmentAdapter fragmentAdapter;
-    // ==
+    ImageButton timeLineBtn, mapBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_tl);
 
-        // ==
-        maintablayout = (TabLayout)findViewById(R.id.maintablayout);
-        mainviewpager = (ViewPager)findViewById(R.id.mainviewpager);
+        timeLineBtn = (ImageButton)findViewById(R.id.timeLineBtn);
+        mapBtn = (ImageButton)findViewById(R.id.mapBtn);
 
-        fragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
-        mainviewpager.setAdapter(fragmentAdapter);
-        maintablayout.setupWithViewPager(mainviewpager);
-        // ==
+        MainTLFragment mainTLFragment = new MainTLFragment();
+        MainMapFragment mainMapFragment = new MainMapFragment();
+
+        replaceFragment(mainTLFragment);
+
+        timeLineBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timeLineBtn.setImageResource(btn_timeline_on);
+                mapBtn.setImageResource(btn_map_off);
+                replaceFragment(mainTLFragment);
+            }
+        });
+        mapBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timeLineBtn.setImageResource(btn_timeline_off);
+                mapBtn.setImageResource(btn_map_on);
+                replaceFragment(mainMapFragment);
+            }
+        });
 
         // 1. 네트워크 체크->GPS On 체크
         // 2. 6.0이냐 아니냐 -> GPS 동의 여부
@@ -79,42 +87,12 @@ public class MainTLActivity extends BaseActivity {
 
     }
 
-    // == 플래그 먼트 어댑터
-    class FragmentAdapter extends FragmentPagerAdapter {
-
-        // 프레그먼트 화면 개수 및 정의
-        Fragment[] frags = new Fragment[]{
-                new MainTLFragment(),
-                new MainMapFragment()
-        };
-
-        // 프레그먼트 화면 제목 설정
-        String[] titles = new String[]{
-                "타임라인", "지도"
-        };
-
-        // 생성자
-        public FragmentAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return frags[position];
-        }
-
-        @Override
-        public int getCount() {
-            return frags.length;
-        }
-
-        // 오버라이드 getPageTitle
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return titles[position];
-        }
+    public void replaceFragment(Fragment fragment){
+        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.commit();
     }
-
 
     // =================================================================
 
@@ -192,13 +170,13 @@ public class MainTLActivity extends BaseActivity {
     // 마이페이지
     public void onMypageImageBtn(View view){
         leftmenu_reset();
-        U.getInstance().setMyPageType(true);
         Intent intent = new Intent(this, MyPageActivity.class);
+        intent.putExtra("type", true);
         startActivity(intent);
     }
 
     // 포인트 상세보기
-    public void onMyPointTV(View view){
+    public void onMyPointBtn(View view){
         leftmenu_reset();
         Intent intent = new Intent(MainTLActivity.this, PointActivity.class);
         startActivity(intent);
@@ -230,24 +208,6 @@ public class MainTLActivity extends BaseActivity {
         leftmenu_reset();
         Intent intent = new Intent(MainTLActivity.this, SettingActivity.class);
         startActivity(intent);
-    }
-
-    // 로그아웃
-    //=======================카카오 로그아웃
-    // 세션이 열렸을때만 활성화 하고 -> 마이메뉴쪽 하단에 배치
-    // 세션이 닫혀있으면 -> 로그인 버튼
-    public void onLogoutBtn(View view) {
-        UserManagement.requestLogout(new LogoutResponseCallback() {
-            @Override
-            public void onCompleteLogout() {
-                Log.getInstance().signLog("로그아웃 완료 : onClickLogout()");
-                new Member(null, null, null, null, null, null, null, false);
-                Intent intent = new Intent(MainTLActivity.this, LoginActivity.class);
-                startActivity(intent);
-                // 이전 액티비티 모두 종료하기 위하여.
-                actFinish();
-            }
-        });
     }
 
     // ======================================================

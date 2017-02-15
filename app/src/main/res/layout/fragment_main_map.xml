@@ -55,17 +55,21 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="109dp"
         android:layout_gravity="bottom"
         android:id="@+id/detailMarker"
         android:visibility="invisible"
         android:onClick="onDetailMarker"
-        android:background="#ffffff">
+        android:background="#ffffff"
+        android:paddingTop="14dp"
+        android:paddingLeft="23dp"
+        android:paddingRight="23dp"
+        android:paddingBottom="15dp">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@mipmap/petpal"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@mipmap/img_people_profile"
             android:id="@+id/imageView4"
             android:layout_weight="1" />
 
@@ -73,6 +77,9 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingLeft="31dp"
+            android:paddingRight="31dp"
+            android:gravity="center"
             android:layout_weight="1">
 
             <TextView
@@ -80,6 +87,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView17"
+                android:textSize="@dimen/fontOneFiveSize"
+                android:gravity="center|left"
                 android:layout_weight="1"/>
 
             <TextView
@@ -87,6 +96,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView16"
+                android:textSize="@dimen/fontOneFiveSize"
+                android:gravity="center|left"
                 android:layout_weight="1"/>
 
             <TextView
@@ -94,6 +105,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView15"
+                android:textSize="@dimen/fontOneFiveSize"
+                android:gravity="center|left"
                 android:layout_weight="1"/>
         </LinearLayout>
 

@@ -9,10 +9,12 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tacademy.petpp.base.BaseActivity;
@@ -37,6 +39,9 @@ import rx.schedulers.Schedulers;
 
 public class PeopleProfileActivity extends BaseActivity {
 
+    // 상단바 타이틀
+    TextView title_text;
+
     // 스피너 성별
     Spinner p_Spinner_XY, p_Spinner_age;
     ArrayAdapter<CharSequence> p_Spinner_XY_Adapter, p_Spinner_age_Adapter;
@@ -46,11 +51,30 @@ public class PeopleProfileActivity extends BaseActivity {
     LinearLayout personLinearLayout;
     EditText name_et, phone_et;
 
+    Button nextBtn;
+    Boolean type;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         actList.add(this); // actList에 B를 추가해줍니다.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_people_profile);
+
+        // 상단바
+        title_text = (TextView)findViewById(R.id.title_text);
+        nextBtn = (Button)findViewById(R.id.nextBtn);
+        title_text.setText("주인님이 궁금해요");
+
+        Intent intent = getIntent();
+        type = intent.getExtras().getBoolean("type");
+        // 프로필 수정이면 이미 저장되있는 데이터를 세팅해준다.
+        if(type==true){
+            // 프로필 수정이 맞다. -> 데이터 세팅
+            nextBtn.setText("완료");
+            Toast.makeText(this, "주인님의 프로필을 수정해주세요.", Toast.LENGTH_SHORT).show();
+        }else{
+            nextBtn.setText("다음");
+        }
 
         p_Spinner_age = (Spinner)findViewById(R.id.p_Spinner_age);
         p_Spinner_XY = (Spinner)findViewById(R.id.p_Spinner_XY);
@@ -66,6 +90,51 @@ public class PeopleProfileActivity extends BaseActivity {
                 //closeKeyword(this, );
             }
         });
+    }
+
+    // 다음 ========================================================
+
+    // 모두 입력 확인 후 서버에 저장하고 반려견 정보 입력화면으로 이동
+    public void onNextBtn(View view){
+        if(!isValidate()) return;
+
+        if(Member.getInstance().getKakaoId() == null | Member.getInstance().getKakaoId() == "") {
+            Log.getInstance().signLog("카카오톡 아이디와 회원이름이 들어오지 않았습니다. 확인 부탁드립니다.");
+        }else{
+            // 잘들어왔는지 확인과정
+            Log.getInstance().signLog("프로필 화면에서 카카오톡 아이다 :" + Member.getInstance().getKakaoId());
+            Log.getInstance().signLog("프로필 화면에서 회원이름 :" + Member.getInstance().getName());
+            Log.getInstance().signLog("프로필 화면에서 이미지 url :" + Member.getInstance().getImageURL());
+            Log.getInstance().signLog("프로필 화면에서 회원이름 :" + Member.getInstance().getMobile());
+
+
+            if(type == true){
+                Toast.makeText(PeopleProfileActivity.this, "완료되었습니다.", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+            else {
+                Intent intent = new Intent(this, DogProfileActivity.class);
+                intent.putExtra("type", false);
+                startActivity(intent);
+            }
+        }
+    }
+
+    // 정보 비어있는지 확인
+    public boolean isValidate(){
+        if(TextUtils.isEmpty(name_et.getText().toString())){   // TextUtils.isEmpty : 비어있는지 아닌지 -> 널이나 공백 -> 이 경우는 공백
+            name_et.setError("이름을 입력하세요");
+            return false;
+        } else if(TextUtils.isEmpty(phone_et.getText().toString())){
+            phone_et.setError("핸드폰 번호를 입력하세요");
+            return false;
+        }else {
+            Member.getInstance().setName(name_et.getText().toString());
+            Member.getInstance().setMobile(phone_et.getText().toString());
+            name_et.setError(null);
+            phone_et.setError(null);
+        }
+        return true;
     }
 
     // ============================= 스피너에 어댑터 달기 ================
@@ -272,41 +341,4 @@ public class PeopleProfileActivity extends BaseActivity {
         });
     }
 
-    // 다음 ========================================================
-
-    // 모두 입력 확인 후 서버에 저장하고 반려견 정보 입력화면으로 이동
-    public void onPProfileNext(View view){
-        if(!isValidate()) return;
-
-        if(Member.getInstance().getKakaoId() == null | Member.getInstance().getKakaoId() == "") {
-            Log.getInstance().signLog("카카오톡 아이디와 회원이름이 들어오지 않았습니다. 확인 부탁드립니다.");
-        }else{
-            // 잘들어왔는지 확인과정
-            Log.getInstance().signLog("프로필 화면에서 카카오톡 아이다 :" + Member.getInstance().getKakaoId());
-            Log.getInstance().signLog("프로필 화면에서 회원이름 :" + Member.getInstance().getName());
-            Log.getInstance().signLog("프로필 화면에서 이미지 url :" + Member.getInstance().getImageURL());
-            Log.getInstance().signLog("프로필 화면에서 회원이름 :" + Member.getInstance().getMobile());
-
-
-            Intent intent = new Intent(this, DogProfileActivity.class);
-            startActivity(intent);
-        }
-    }
-
-    // 이름 비어있는지 확인
-    public boolean isValidate(){
-        if(TextUtils.isEmpty(name_et.getText().toString())){   // TextUtils.isEmpty : 비어있는지 아닌지 -> 널이나 공백 -> 이 경우는 공백
-            name_et.setError("이름을 입력하세요");
-            return false;
-        } else if(TextUtils.isEmpty(phone_et.getText().toString())){
-            phone_et.setError("핸드폰 번호를 입력하세요");
-            return false;
-        }else {
-            Member.getInstance().setName(name_et.getText().toString());
-            Member.getInstance().setMobile(phone_et.getText().toString());
-            name_et.setError(null);
-            phone_et.setError(null);
-        }
-        return true;
-    }
 }

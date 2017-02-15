@@ -90,6 +90,10 @@ public class BaseActivity extends AppCompatActivity {
         finish();
     }
 
+    public void onBackBtn(View view){
+        finish();
+    }
+
 //
 //    private final long FINISH_INTERVAL_TIME = 2000;
 //    private long backPressedTime = 0;

@@ -7,27 +7,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.mypage.act.MyPageActivity">
 
+    <include layout="@layout/feed_top_header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/topMarginSize"
         android:orientation="vertical">
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:popupTheme="@style/AppTheme.PopupOverlay">
-
-        <Button
-            android:text="이전"
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:padding="5dp"
-            android:id="@+id/onBACK"
-            android:onClick="onBACK"/>
-
-    </android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:orientation="vertical"
@@ -36,12 +24,10 @@
         android:layout_below="@+id/include"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/linearLayout2">
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:layout_marginTop="15dp"
+        android:id="@+id/linearLayout2"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp">
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -49,21 +35,25 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:layout_height="120dp"
-                    app:srcCompat="@mipmap/ic_launcher"
+                    android:layout_height="97dp"
+                    android:src="@mipmap/img_people_profile"
                     android:id="@+id/imageView2"
-                    android:layout_width="120dp" />
+                    android:layout_width="97dp"
+                    android:layout_gravity="center"/>
 
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_weight="2">
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
 
                         <LinearLayout
                         android:orientation="vertical"
@@ -73,15 +63,17 @@
 
                         <TextView
                             android:text="21살"
+                            android:textSize="@dimen/fontOneTwoSize"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:id="@+id/textView12"
                             android:layout_weight="1"
                             android:textStyle="bold"
-                            android:gravity="center"/>
+                            android:gravity="center" />
 
                         <TextView
                             android:text="나이"
+                            android:textSize="@dimen/fontOneZeroSize"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:id="@+id/textView2"
@@ -97,6 +89,7 @@
 
                             <TextView
                                 android:text="여자"
+                                android:textSize="@dimen/fontOneTwoSize"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -105,6 +98,7 @@
 
                             <TextView
                                 android:text="성별"
+                                android:textSize="@dimen/fontOneZeroSize"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -120,6 +114,7 @@
 
                             <TextView
                                 android:text="송내동"
+                                android:textSize="@dimen/fontOneTwoSize"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -128,6 +123,7 @@
 
                             <TextView
                                 android:text="위치"
+                                android:textSize="@dimen/fontOneZeroSize"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -138,8 +134,9 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="2">
+                        android:layout_height="35dp"
+                        android:layout_weight="0"
+                        android:layout_marginTop="20dp">
 
                         <LinearLayout
                             android:orientation="horizontal"
@@ -148,44 +145,72 @@
 
                             <Button
                                 android:text="산책예약하기"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="@dimen/fontOneZeroSize"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginRight="5dp"
                                 android:id="@+id/scheduleBtn"
                                 android:layout_weight="1"
-                                android:visibility="visible"/>
+                                android:visibility="visible"
+                                android:background="@color/colorBase"/>
 
                             <Button
                                 android:text="메시지보내기"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="@dimen/fontOneZeroSize"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="5dp"
                                 android:id="@+id/messageBtn"
                                 android:layout_weight="1"
-                                android:visibility="visible"/>
+                                android:visibility="visible"
+                                android:background="@color/colorBase"/>
                         </LinearLayout>
 
-                        <Button
-                            android:text="프로필 수정하기"
+                        <LinearLayout
+                            android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/editProfileBtn"
-                            android:layout_weight="1"
-                            android:visibility="invisible"/>
+                            android:layout_height="match_parent">
+
+                            <Button
+                                android:text="견주 프로필\n수정"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="@dimen/fontOneZeroSize"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginRight="5dp"
+                                android:id="@+id/editPProfileBtn"
+                                android:layout_weight="1"
+                                android:visibility="invisible"
+                                android:background="@color/colorBase" />
+
+                            <Button
+                                android:text="반려견 프로필\n수정"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="@dimen/fontOneZeroSize"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="5dp"
+                                android:id="@+id/editDProfileBtn"
+                                android:layout_weight="1"
+                                android:visibility="invisible"
+                                android:background="@color/colorBase"/>
+
+                        </LinearLayout>
                     </RelativeLayout>
 
                 </LinearLayout>
 
             </LinearLayout>
 
-            <TextView
-                android:text="안녕하세요 ^^ 초코맘입니다~ 항상 아이들을 행복하게 산책시켜주고 있습니다! 잘부탁드립니다^^~!"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView11"
-                android:layout_marginTop="10dp"/>
-
-        </LinearLayout>
-
     </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="31.7dp"
+        android:background="@color/colorTLLine"></FrameLayout>
 
     <include layout="@layout/include_mypage_layout"
         android:layout_width="match_parent"

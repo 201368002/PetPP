@@ -3,7 +3,6 @@ package com.example.tacademy.petpp.ui.mypage.frag;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,16 +12,12 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.example.tacademy.petpp.R;
-import com.example.tacademy.petpp.ui.DitailPostActivity;
-import com.example.tacademy.petpp.ui.WriteAcitivity;
+import com.example.tacademy.petpp.ui.DetailPostActivity;
 import com.example.tacademy.petpp.util.ImageProc;
-import com.example.tacademy.petpp.util.U;
 
-import static android.view.View.INVISIBLE;
-import static android.view.View.VISIBLE;
 
 public class MyViewFragment extends Fragment {
-    private static final String ARG_PARAM1 = "param1";
+   private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     private String mParam1;
@@ -56,7 +51,6 @@ public class MyViewFragment extends Fragment {
             "http://www.9dog.co.kr/wp-content/uploads/2013/07/img_01.jpg",
             "http://www.9dog.co.kr/wp-content/uploads/2013/08/sul.jpg"};
     // ===========================================
-    FloatingActionButton myViewFab;
 
     public MyViewFragment() {
     }
@@ -85,25 +79,9 @@ public class MyViewFragment extends Fragment {
         this.inflater = inflater;
         View view = inflater.inflate(R.layout.fragment_my_view, container, false);
         myPageGridView = (GridView)view.findViewById(R.id.myPageGridView);
-        myViewFab = (FloatingActionButton)view.findViewById(R.id.myViewFab);
         myAdapter = new MyAdapter();
         myPageGridView.setAdapter(myAdapter);
 
-        if(U.getInstance().getMyPageType() == true){   // 오른쪽 메뉴에서 마이피드페이지 넘어올 경우
-            // 글작성 fab 버튼 보이기
-            myViewFab.setVisibility(VISIBLE);
-        }else{
-            // 글작성 fab 버튼 숨기기
-            myViewFab.setVisibility(INVISIBLE);
-        }
-
-        myViewFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), WriteAcitivity.class);
-                startActivity(intent);
-            }
-        });
 
         return view;
     }
@@ -153,7 +131,7 @@ public class MyViewFragment extends Fragment {
             myPageGridImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), DitailPostActivity.class);
+                    Intent intent = new Intent(getActivity(), DetailPostActivity.class);
                     startActivity(intent);
                 }
             });
@@ -164,4 +142,5 @@ public class MyViewFragment extends Fragment {
             return convertView;
         }
     }
+
 }
